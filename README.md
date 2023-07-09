@@ -6,11 +6,17 @@ Inside of our monorepo we have two workspaces "blockchain" and "web".
 
 The blockchain workspace is located in `/apps/blockchain` which utilizes Truffle to deploy a Solidity Smart Contract that will allow us to mint Onchain SVG Tickets for our ticketing.
 
+In our blockchain workspace we have [Typechain](https://github.com/dethcrypto/TypeChain) setup. 
+
+TypeChain is a package specifically designed for devs who use TypeScript and want to interact with Ethereum smart contracts in their web applications. It generates TypeScript bindings based on the Solidity contract code, you get the benefits of type safety and autocompletion and a clear way to communicate and use the underlying smart contracts. It can help you catch errors early in development and improve code readability. It integrates with Ethereum development frameworks and libraries, such as [Truffle](https://trufflesuite.com/), Hardhat, [Ethers](https://docs.ethers.org/), and [Web3JS](https://web3js.readthedocs.io/).
+
+In summary, TypeChain empowers TypeScript developers to efficiently work with smart contracts, providing them with type safety and improved development experience when building web applications on the Ethereum blockchain.
+
 The web workspace is a client application built with ViteJS + React w/ TypeScript located in `apps/web` that utilizes MetaMask SDK to connect our React application to either MetaMask Browser extension (if installed) otherwise a MetaMask Mobile wallet. We show you how to conditionally render UI to connect, switch chains and display wallet information from MetaMask Browser Extension or MetaMask Mobile. As well, we have provided a MetaMask Context Provider and a `useMetaMask` hook to help you manage MetaMask wallet state in the scenario of connecting to either MetaMask Extension or Mobile.
 
 Once this repos is cloned this README will walk you through how to get your project built, your contracts deployed, configure a specific chain in which to deploy your contract to and how to run the client application and guide you through manually testing the frontend to ensure you understand it's features.
 
-Once running we should be able to Mint new tickets, respond to changes from the wallet like switching of accounts, chain, or updated balance. Finally once the user has minted ticket(s) the minting page will also display those SVG tickets that are stored on the Ethereum blockchain on the minting page so that a user connected with a wallet that has previously purchased tickets can see all NFT tickets that they own.
+Once running we should be able to Mint tickets, respond to changes from the wallet like switching of accounts, chain, or updated balance. Finally once the user has minted ticket(s) the minting page will also display those SVG tickets that are stored on the Ethereum blockchain on the minting page so that a user connected with a wallet that has previously purchased tickets can see all NFT tickets that they own.
 
 ### Step #01
 
