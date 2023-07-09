@@ -1,14 +1,18 @@
 # ViteJS + React, MetaMask SDK and Linea Testnet
 
-This branch of the Onchain SVG NFT workshop repo is a workshop that will walk you through a Mono Repo setup using [Turbo](https://turbo.build/) for the build. There is a blockchain project located in `/apps/blockchain` which utilizes Truffle to deploy a Solidity Smart Contract that will allow us to mint Onchain SVG Tickets for a fictitious event named "ETH Atlantis" (not and official ETH Global Event).  
+This is an NFT Tickets workshop that utilizes SVG to create onchain SVG NFT tickets for a fictitious event called ETH Atlantis. This README will walk you through a Mono Repo setup using [Turborepo](https://turbo.build/repo). Turborepo is a high-performance build system for JavaScript and TypeScript codebases that simplifies the build process and reduces the maintenance burden and overhead and facilitates monorepo builds.
 
-Next we have a client application built with ViteJS + React w/ TypeScript located in `apps/web` that utilizes MetaMask SDK to connect our React application to either MetaMask Browser extension (if installed) or a MetaMask Mobile wallet if a MetaMask browser extension is not found. We show you how to conditionally render UI to connect, switch chains and display wallet information from MetaMask Browser Extension or MetaMask Mobile. As well, we have provided a MetaMask Context Provider and a `useMetaMask` hook to help you manage MetaMask wallet state in the scenario of connecting to either MetaMask Extension or Mobile.
+Inside of our monorepo we have two workspaces "blockchain" and "web".
 
-Once this repos is cloned and you have switched to the `vite-linea-sdk` branch using Git. This README will walk you through how to get your project built, your contracts deployed, configure a specific chain in which to deploy your contract to and how to run the client application.
+The blockchain workspace is located in `/apps/blockchain` which utilizes Truffle to deploy a Solidity Smart Contract that will allow us to mint Onchain SVG Tickets for our ticketing.
+
+The web workspace is a client application built with ViteJS + React w/ TypeScript located in `apps/web` that utilizes MetaMask SDK to connect our React application to either MetaMask Browser extension (if installed) otherwise a MetaMask Mobile wallet. We show you how to conditionally render UI to connect, switch chains and display wallet information from MetaMask Browser Extension or MetaMask Mobile. As well, we have provided a MetaMask Context Provider and a `useMetaMask` hook to help you manage MetaMask wallet state in the scenario of connecting to either MetaMask Extension or Mobile.
+
+Once this repos is cloned this README will walk you through how to get your project built, your contracts deployed, configure a specific chain in which to deploy your contract to and how to run the client application and guide you through manually testing the frontend to ensure you understand it's features.
 
 Once running we should be able to Mint new tickets, respond to changes from the wallet like switching of accounts, chain, or updated balance. Finally once the user has minted ticket(s) the minting page will also display those SVG tickets that are stored on the Ethereum blockchain on the minting page so that a user connected with a wallet that has previously purchased tickets can see all NFT tickets that they own.
 
-### Step #01: 
+### Step #01
 
 Clone the project and switch to the proper branch:
 
@@ -16,12 +20,15 @@ Clone the project and switch to the proper branch:
 git clone https://github.com/MetaMask/react-sdk-linea-workshop && \ 
 cd react-sdk-linea-workshop
 ```
+### Step #02
 
 Open in your Editor of choice and install dependencies from root of project:
 
 ```bash
 npm install
 ```
+
+### Step #03
 
 Create an Infura account and setup an [Infura](https://www.infura.io) account and create an API Key 
 
@@ -57,11 +64,19 @@ INFURA_PROJECT_ID=[INFURA-API-KEY-GOES-HERE]
 PRIVATE_KEY=[MM-PRIVATE-KEY-GOES]
 ```
 
+### Step #04
+
+Get some LineaETH from the Infura Faucet located at: [infura.io/faucet/linea](https://www.infura.io/faucet/linea)
+
+### Step #05
+
 Build project and compile contracts to generate `apps/web/contract-abis`:
 
 ```bash
 npm run build
 ```
+
+### Step #06
 
 Deploy contract on Linea: 
 
@@ -75,24 +90,44 @@ Deploy contract on Mumbai:
 npm run deploy:mumbai --workspace blockchain
 ```
 
+### Step #07
+
+Copy the contract address to the `apps/web/lib/config.ts`:
+
+```ts
+  '0xe704': {
+    name: 'Linea',
+    contractAddress: '[CONTRACT-ADDRESS]',
+    symbol: 'LineaETH',
+    blockExplorer: 'https://explorer.goerli.linea.build',
+    rpcUrl: 'https://rpc.goerli.linea.build',
+  },
+```
+### Step #08
+
 Run frontend against deployed contract: 
 
 ```bash
 npm run dev:testnet
 ```
 
-What to test:
+### Step #09
 
-From here we will first test our client running with MetaMask Browser Extension enabled
+Test the Frontend with MetaMask Browser Extension
 
 - Connect multiple accounts
-- Can we change chain and see it reflected in the UI
-- Do we get a SwitchChain button and does it work
+- Change chain and see it reflected in the UI
+  - Do we get a SwitchChain button and does it work
 - Can we change accounts and see it reflected in the UI
 - Mint a Ticket NFT
 - See the Ticket NFT show up at bottom of page
 - Disconnect from both accounts and see it reflected in the UI
 - Disable MetaMask Browser Extension
+
+### Step #10
+
+Test the Frontend with MetaMask Mobile
+
 - Connect with MetaMask Mobile
 - Switch chains and ensure SwitchChain button shows up in the UI
 - Mint a Ticket NFT
