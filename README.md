@@ -10,7 +10,12 @@ In our blockchain workspace we have [Typechain](https://github.com/dethcrypto/Ty
 
 TypeChain is a package specifically designed for devs who use TypeScript and want to interact with Ethereum smart contracts in their web applications. It generates TypeScript bindings based on the Solidity contract code, you get the benefits of type safety and autocompletion and a clear way to communicate and use the underlying smart contracts. It can help you catch errors early in development and improve code readability. It integrates with Ethereum development frameworks and libraries, such as [Truffle](https://trufflesuite.com/), Hardhat, [Ethers](https://docs.ethers.org/), and [Web3JS](https://web3js.readthedocs.io/).
 
-In summary, TypeChain empowers TypeScript developers to efficiently work with smart contracts, providing them with type safety and improved development experience when building web applications on the Ethereum blockchain.
+In this project we use:
+
+- [@typechain/ethers-v5](https://github.com/dethcrypto/TypeChain/tree/master/packages/target-ethers-v5)
+- [@typechain/truffle-v5](https://github.com/dethcrypto/TypeChain/tree/master/packages/target-truffle-v5)
+
+These two packages target Truffle and Ethers which are the used in this project.
 
 The web workspace is a client application built with ViteJS + React w/ TypeScript located in `apps/web` that utilizes MetaMask SDK to connect our React application to either MetaMask Browser extension (if installed) otherwise a MetaMask Mobile wallet. We show you how to conditionally render UI to connect, switch chains and display wallet information from MetaMask Browser Extension or MetaMask Mobile. As well, we have provided a MetaMask Context Provider and a `useMetaMask` hook to help you manage MetaMask wallet state in the scenario of connecting to either MetaMask Extension or Mobile.
 
