@@ -1,0 +1,19 @@
+{
+  "globalEnv": ["VITE_PUBLIC_NETWORK_ID", "VITE_PUBLIC_INFURA_PROJECT_ID"],
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "local": {
+      "cache": false
+    },
+    "dev": {
+      "cache": false
+    }
+  }
+}

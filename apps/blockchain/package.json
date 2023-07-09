@@ -1,0 +1,33 @@
+{
+  "name": "blockchain",
+  "main": "typechain/index.ts",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "truffle compile && node scripts/generate_types.js",
+    "compile": "truffle compile",
+    "migrate": "truffle migrate",
+    "test": "truffle test",
+    "local": "truffle develop --log",
+    "dev": "npm run migrate --development",
+    "deploy:goerli": "truffle migrate --network goerli",
+    "deploy:mumbai": "truffle migrate --network mumbai",
+    "deploy:linea": "truffle migrate --network linea"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "@truffle/hdwallet-provider": "^2.1.9",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/truffle-v5": "^8.0.2",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.3",
+    "base64-sol": "^1.1.0",
+    "ganache": "^7.7.7",
+    "truffle": "^5.8.0",
+    "truffle-flattener": "^1.6.0",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.1.1",
+    "typescript": "^4.8.4"
+  }
+}
