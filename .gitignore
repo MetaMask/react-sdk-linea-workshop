@@ -31,8 +31,6 @@ yarn-error.log*
 
 # turbo
 .turbo
-
-/apps/blockchain/typechain/*
 .env
 
 /apps/web/src/lib/contract-abis/*
