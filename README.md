@@ -75,6 +75,32 @@ INFURA_PROJECT_ID=[INFURA-API-KEY-GOES-HERE]
 PRIVATE_KEY=[MM-PRIVATE-KEY-GOES]
 ```
 
+One area of the project you should be aware of is your Truffle config located in `/apps/blockchain/truffle-config.js`, here we have the network settings for Linea:
+
+Notice that the API Key (`INFURA_PROJECT_ID`) and the `PRIVATE_KEY` that we just added is being utilized by the blockchain workspace in this config:
+
+```ts
+    linea: {
+      provider: function () {
+        return new HDWalletProvider({
+          privateKeys: [process.env.PRIVATE_KEY],
+          provider: `https://linea-goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+        });
+      },
+      network_id: 59140,
+    },
+```
+
+You can also check out the [Truffle Network Configuration docs](https://trufflesuite.com/docs/truffle/reference/configuration/#networks) if you want to know what properties of the network config are and their defaults.
+
+Also, the `VITE_PUBLIC_NETWORK_ID` (hex version of chainId) is being used in the web workspace in the following files:
+
+- `apps/web/src/components/Navigation/Navigation.tsx`
+- `apps/web/src/components/Tickets/Tickets.tsx`
+- `apps/web/src/hooks/useSwitchNetwork.tsx`
+- `apps/web/src/lib/config.ts`
+- `~turbo.json`
+
 ### Step #04
 
 Get some LineaETH from the Infura Faucet located at: [infura.io/faucet/linea](https://www.infura.io/faucet/linea)
