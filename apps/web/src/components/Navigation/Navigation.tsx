@@ -1,7 +1,7 @@
 import { SiEthereum } from 'react-icons/si'
 import { useMetaMask } from '~/hooks/useMetaMask'
 import { formatAddress, formatChainAsNum } from '~/utils'
-import { config, isSupportedNetwork } from '~/lib/config'
+import { genConfig, baseConfig, isSupportedNetwork } from '~/lib/config'
 import SwitchNetwork from '~/components/SwitchNetwork/SwitchNetwork'
 import styles from './Navigation.module.css'
 
@@ -12,7 +12,7 @@ export const Navigation = () => {
   const walletChainSupported = isSupportedNetwork(wallet.chainId)
 
   // now chainInfo is strongly typed or fallback to linea if not a valid chain
-  const chainInfo = isSupportedNetwork(networkId) ? config[networkId] : config['0xe704']
+  const chainInfo = isSupportedNetwork(networkId) ? genConfig[networkId] : baseConfig['0xe704']
 
   return (
     <div className={styles.navigation}>
