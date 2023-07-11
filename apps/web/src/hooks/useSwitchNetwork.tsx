@@ -1,4 +1,4 @@
-import { config, isSupportedNetwork } from '../lib/config'
+import { genConfig, isSupportedNetwork } from '../lib/config'
 
 export const useSwitchNetwork = () => {
   const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
@@ -13,16 +13,16 @@ export const useSwitchNetwork = () => {
       params: [
         {
           chainId: networkId,
-          ...(config[networkId].blockExplorer ? {
-            blockExplorerUrls: [config[networkId].blockExplorer]
+          ...(genConfig[networkId].blockExplorer ? {
+            blockExplorerUrls: [genConfig[networkId].blockExplorer]
           } : {}),
-          chainName: config[networkId].name,
+          chainName: genConfig[networkId].name,
           nativeCurrency: {
             decimals: 18,
-            name: config[networkId].name,
-            symbol: config[networkId].symbol,
+            name: genConfig[networkId].name,
+            symbol: genConfig[networkId].symbol,
           },
-          rpcUrls: [config[networkId].rpcUrl],
+          rpcUrls: [genConfig[networkId].rpcUrl],
         },
       ],
     })
