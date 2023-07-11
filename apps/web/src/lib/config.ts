@@ -1,4 +1,5 @@
-export const config = {
+
+export const baseConfig = {
   '0x13881': {
     name: 'Mumbai',
     contractAddress: '',
@@ -8,12 +9,34 @@ export const config = {
   },
   '0xe704': {
     name: 'Linea',
-    contractAddress: '',
+    contractAddress: '0x0c235217857F35742158E86Ad409d0A3548627Bf',
     symbol: 'LineaETH',
     blockExplorer: 'https://explorer.goerli.linea.build',
     rpcUrl: 'https://rpc.goerli.linea.build',
   },
+  '0x5': {
+    name: 'Goerli',
+    contractAddress: '0x0c235217857F35742158E86Ad409d0A3548627Bf',
+    symbol: 'ETH',
+    blockExplorer: 'https://goerli.etherscan.io',
+    rpcUrl: 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+  }
 }
+
+import * as contractAbi from './contract-abis/ETHTickets.json';
+
+
+export const genConfig = Object.fromEntries(
+  Object.entries(contractAbi.networks).map(([networkId, { address }]) => {
+    const networkConfig = baseConfig[`0x${parseInt(networkId, 10).toString(16)}` as keyof typeof baseConfig];
+
+    if (!networkConfig) {
+      throw new Error(`No base config found for network ${networkId}`);
+    }
+
+    return [`0x${parseInt(networkId, 10).toString(16)}`, { ...networkConfig, contractAddress: address }];
+  })
+);
 
 /**
  * It returns true if the id is a key of the config object
