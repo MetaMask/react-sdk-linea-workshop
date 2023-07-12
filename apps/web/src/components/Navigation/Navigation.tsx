@@ -7,7 +7,7 @@ import styles from './Navigation.module.css'
 
 export const Navigation = () => {
 
-  const { wallet, isConnecting, connectMetaMask, sdkConnected } = useMetaMask()
+  const { wallet, isConnecting, connectMetaMask, sdk, sdkConnected } = useMetaMask()
   const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
   const walletChainSupported = isSupportedNetwork(wallet.chainId)
 
@@ -33,9 +33,18 @@ export const Navigation = () => {
             {wallet.accounts.length > 0 && !isSupportedNetwork(wallet.chainId) && (
               <SwitchNetwork />
             )}
+            <button onClick={async () => {
+              console.debug(`testing sdk: `, sdk)
+              const accounts = await sdk.connect();
+              console.debug(`accounts: `, accounts)
+            }}>Test</button>
+            <button onClick={async () => {
+              sdk.terminate();
+            }}>Terminate</button>
+
             {wallet && wallet.accounts.length > 0 && (
               <>
-                { walletChainSupported && 
+                {walletChainSupported &&
                   <a href={`${chainInfo?.blockExplorer}/address/${chainInfo?.contractAddress}`}
                     target="_blank"
                     title="Open in Block Explorer"
@@ -43,7 +52,7 @@ export const Navigation = () => {
                     {chainInfo.name}:{formatChainAsNum(wallet.chainId)}
                   </a>
                 }
-                 &nbsp;|&nbsp;
+                &nbsp;|&nbsp;
                 <a href={`https://etherscan.io/address/${wallet}`}
                   target="_blank"
                   title="Open in Block Explorer"

@@ -26,18 +26,18 @@ export const baseConfig = {
 
 
 
-export const genConfig = Object.fromEntries(
-  Object.entries(contractAbi.networks).map(([networkId, { address }]) => {
-    const networkConfig = baseConfig[`0x${parseInt(networkId, 10).toString(16)}` as keyof typeof baseConfig];
+// export const genConfig = Object.fromEntries(
+//   Object.entries(contractAbi.networks).map(([networkId, { address }) => {
+//     const networkConfig = baseConfig[`0x${parseInt(networkId, 10).toString(16)}` as keyof typeof baseConfig];
 
-    if (!networkConfig) {
-      throw new Error(`No base config found for network ${networkId}`);
-    }
+//     if (!networkConfig) {
+//       throw new Error(`No base config found for network ${networkId}`);
+//     }
 
-    return [`0x${parseInt(networkId, 10).toString(16)}`, { ...networkConfig, contractAddress: address }];
-  })
-);
-
+//     return [`0x${parseInt(networkId, 10).toString(16)}`, { ...networkConfig, contractAddress: address }];
+//   })
+// );
+export const genConfig = [];
 /**
  * It returns true if the id is a key of the config object
  * @param {string | null} [id] - The network ID of the network you want to check.
