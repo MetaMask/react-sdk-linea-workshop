@@ -35,9 +35,9 @@ export const Navigation = () => {
             )}
             {wallet && wallet.accounts.length > 0 && (
               <>
-                <button onClick={async () => sdk.terminate()}>
+                {/* <button onClick={async () => sdk.terminate()}>
                   Terminate
-                </button>
+                </button> */}
                 {walletChainSupported &&
                   <a href={`${chainInfo?.blockExplorer}/address/${chainInfo?.contractAddress}`}
                     target="_blank"

@@ -22,7 +22,7 @@ type TicketFormatted = {
 
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
-  const { wallet, sdkConnected } = useMetaMask()
+  const { wallet, sdkConnected, mints } = useMetaMask()
 
   const listOfTickets = ticketCollection.map((ticket) => (
     <div className={styles.svgItem} key={`ticket${ticket.tokenId}`}>
@@ -74,11 +74,12 @@ const TicketsOwned = () => {
           Promise.all(promises).then(() => setTicketCollection(ticketsRetrieved))
         })
     }
-  }, [wallet.address, wallet.chainId, sdkConnected])
+  }, [wallet.address, mints, wallet.chainId, sdkConnected])
 
   return (
     <div className={styles.ticketsOwnedView}>
       <div className={styles.ticketGrid}>{listOfTickets}</div>
+      {mints}
     </div>
   )
 }

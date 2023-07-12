@@ -24,9 +24,8 @@ const TicketTypes: React.FC<Ticket> = ({
   description, price, priceHexValue,
 }) => {
 
-  const { wallet, setError, sdkConnected } = useMetaMask()
+  const { wallet, setError, updateMints, sdkConnected } = useMetaMask()
   const [isMinting, setIsMinting] = useState(false)
-  const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
 
   const mintTicket = async() => {
     setIsMinting(true)
@@ -60,6 +59,7 @@ const TicketTypes: React.FC<Ticket> = ({
         console.log('minting accepted')
         await tx.wait(1)
         console.log(`Minting complete, mined: ${tx}`)
+        updateMints()
         setIsMinting(false)
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
