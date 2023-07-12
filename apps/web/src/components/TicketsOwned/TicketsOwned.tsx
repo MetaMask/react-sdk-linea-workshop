@@ -79,7 +79,6 @@ const TicketsOwned = () => {
   return (
     <div className={styles.ticketsOwnedView}>
       <div className={styles.ticketGrid}>{listOfTickets}</div>
-      {mints}
     </div>
   )
 }
