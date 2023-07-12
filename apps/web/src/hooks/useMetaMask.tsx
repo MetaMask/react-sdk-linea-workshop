@@ -111,7 +111,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       useDeeplink: false,
       communicationServerUrl: 'https://metamask-sdk-socket.metafi.codefi.network/',
       autoConnect: {
-        enable: false
+        enable: true
       },
       dappMetadata: {
         name: "NFT Tickets",

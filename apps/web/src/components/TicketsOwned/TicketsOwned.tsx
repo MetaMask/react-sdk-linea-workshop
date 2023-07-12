@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 
 import { ETHTickets__factory } from 'blockchain'
-import { genConfig, isSupportedNetwork } from '../../lib/config'
+import { config, isSupportedNetwork } from '../../lib/config'
 import { useMetaMask } from '../../hooks/useMetaMask'
 import styles from './TicketsOwned.module.css'
 
@@ -49,7 +49,7 @@ const TicketsOwned = () => {
         return
       }
 
-      const nftTickets = factory.attach(genConfig[wallet.chainId].contractAddress)
+      const nftTickets = factory.attach(config[wallet.chainId].contractAddress)
       const ticketsRetrieved: TicketFormatted[] = []
 
       nftTickets.walletOfOwner(wallet.address)

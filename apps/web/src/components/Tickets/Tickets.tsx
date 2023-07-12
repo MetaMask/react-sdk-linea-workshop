@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useMetaMask } from '~/hooks/useMetaMask'
 import { ETHTickets__factory } from 'blockchain'
 import { ethers } from 'ethers'
-import { genConfig, isSupportedNetwork } from '~/lib/config'
+import { config, isSupportedNetwork } from '~/lib/config'
 
 import { SiEthereum } from 'react-icons/si'
 
@@ -47,7 +47,7 @@ const TicketTypes: React.FC<Ticket> = ({
       throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
     
-    const nftTickets = factory.attach(genConfig[networkId].contractAddress)
+    const nftTickets = factory.attach(config[networkId].contractAddress)
 
     if (wallet.accounts.length > 0) {
       nftTickets

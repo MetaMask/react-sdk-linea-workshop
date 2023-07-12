@@ -1,7 +1,7 @@
 import { SiEthereum } from 'react-icons/si'
 import { useMetaMask } from '~/hooks/useMetaMask'
 import { formatAddress, formatChainAsNum } from '~/utils'
-import { genConfig, baseConfig, isSupportedNetwork } from '~/lib/config'
+import { config, isSupportedNetwork } from '~/lib/config'
 import SwitchNetwork from '~/components/SwitchNetwork/SwitchNetwork'
 import styles from './Navigation.module.css'
 
@@ -12,7 +12,7 @@ export const Navigation = () => {
   const walletChainSupported = isSupportedNetwork(wallet.chainId)
 
   // now chainInfo is strongly typed or fallback to linea if not a valid chain
-  const chainInfo = isSupportedNetwork(networkId) ? genConfig[networkId] : baseConfig['0xe704']
+  const chainInfo = isSupportedNetwork(networkId) ? config[networkId] : config['0xe704']
 
   return (
     <div className={styles.navigation}>
@@ -22,7 +22,7 @@ export const Navigation = () => {
         </div>
         <div className={styles.rightNav}>
           {wallet.accounts.length < 1 &&
-            <button disabled={isConnecting} onClick={connectMetaMask}>
+            <button onClick={connectMetaMask}>
               Connect MetaMask
             </button>
           }
@@ -33,17 +33,11 @@ export const Navigation = () => {
             {wallet.accounts.length > 0 && !isSupportedNetwork(wallet.chainId) && (
               <SwitchNetwork />
             )}
-            <button onClick={async () => {
-              console.debug(`testing sdk: `, sdk)
-              const accounts = await sdk.connect();
-              console.debug(`accounts: `, accounts)
-            }}>Test</button>
-            <button onClick={async () => {
-              sdk.terminate();
-            }}>Terminate</button>
-
             {wallet && wallet.accounts.length > 0 && (
               <>
+                <button onClick={async () => sdk.terminate()}>
+                  Terminate
+                </button>
                 {walletChainSupported &&
                   <a href={`${chainInfo?.blockExplorer}/address/${chainInfo?.contractAddress}`}
                     target="_blank"
