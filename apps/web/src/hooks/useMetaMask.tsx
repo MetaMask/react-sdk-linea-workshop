@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, createContext, PropsWithChildren, useContext, useCallback } from 'react'
-import { MetaMaskSDK } from '@metamask/sdk'
+import { EventType, MetaMaskSDK, SDKProvider } from '@metamask/sdk'
 import { formatBalance } from '~/utils'
+import _ from 'underscore'
 
 interface WalletState {
   accounts: any[],
@@ -16,6 +17,7 @@ interface MetaMaskContextData {
   errorMessage: string,
   isConnecting: boolean,
   sdkConnected: boolean,
+  sdk?: MetaMaskSDK,
   connectMetaMask: () => void,
   clearError: () => void,
   setError: (error: string) => void,
@@ -31,6 +33,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
   const [sdkConnected, setSdkConnected] = useState(false)
   const [isConnecting, setIsConnecting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [trigger, setTrigger] = useState(0)
   const clearError = () => setErrorMessage('')
   const setError = (error: string) => setErrorMessage(error)
 
@@ -59,7 +62,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
     }) as string
     const balance = formatBalance(balanceRaw)
 
-    const chainId:string = await window.ethereum?.request({
+    const chainId: string = await window.ethereum?.request({
       method: 'eth_chainId',
     }) as string
 
@@ -84,19 +87,38 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
     setIsConnecting(false)
   }
 
+  // Setup provider listener when switching between extension / mobile
+  useEffect(() => {
+    if (!sdk)
+      return;
+
+    console.debug(`setup provider listener`)
+    const onProviderEvent = async (accounts) => {
+      console.debug(`onProviderEvent: `, accounts)
+      if (accounts) {
+        setSdkConnected(true);
+      }
+      setTrigger((_trigger) => _trigger + 1)
+    }
+    sdk.on(EventType.PROVIDER_UPDATE, onProviderEvent);
+    return () => {
+      sdk.removeListener(EventType.PROVIDER_UPDATE, onProviderEvent);
+    };
+  }, [sdk])
+
   useEffect(() => {
     const clientSDK = new MetaMaskSDK({
       useDeeplink: false,
       communicationServerUrl: 'https://metamask-sdk-socket.metafi.codefi.network/',
       autoConnect: {
-        enable: true
+        enable: false
       },
       dappMetadata: {
         name: "NFT Tickets",
         url: window.location.host,
       },
       logging: {
-        developerMode: false,
+        developerMode: true,
       },
       storage: {
         enabled: true,
@@ -116,21 +138,17 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
    * handlers whenever the MetaMaskProvider is unmounted.
    */
   useEffect(() => {
-    if (sdk?.isInitialized() && !_initialized) {
-      updateWalletAndAccounts()
+    updateWalletAndAccounts()
 
-      window.ethereum?.on('_initialized', updateWalletAndAccounts)
-      window.ethereum?.on('connect', updateWalletAndAccounts)
-      window.ethereum?.on('_initialized', () => setSdkConnected(true))
-      window.ethereum?.on('connect', () => setSdkConnected(true))
-      window.ethereum?.on('accountsChanged', updateWallet)
-      window.ethereum?.on('chainChanged', updateWalletAndAccounts)
-      window.ethereum?.on('disconnect', disconnectWallet)
-      window.ethereum?.on('disconnect', () => setSdkConnected(false))
-      window.ethereum?.on('disconnect', () => setIsConnecting(false))
-
-      _initialized = true
-    }
+    window.ethereum?.on('_initialized', updateWalletAndAccounts)
+    window.ethereum?.on('connect', updateWalletAndAccounts)
+    window.ethereum?.on('_initialized', () => setSdkConnected(true))
+    window.ethereum?.on('connect', () => setSdkConnected(true))
+    window.ethereum?.on('accountsChanged', updateWallet)
+    window.ethereum?.on('chainChanged', updateWalletAndAccounts)
+    window.ethereum?.on('disconnect', disconnectWallet)
+    window.ethereum?.on('disconnect', () => setSdkConnected(false))
+    window.ethereum?.on('disconnect', () => setIsConnecting(false))
 
     return () => {
       window.ethereum?.removeListener('_initialized', updateWalletAndAccounts)
@@ -139,7 +157,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       window.ethereum?.removeListener('chainChanged', updateWalletAndAccounts)
       window.ethereum?.removeListener('disconnect', disconnectWallet)
     }
-  }, [updateWallet, updateWalletAndAccounts, disconnectWallet, sdk?.isInitialized()])
+  }, [trigger]);
 
   return (
     <MetaMaskContext.Provider
@@ -149,6 +167,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         errorMessage,
         isConnecting,
         sdkConnected,
+        sdk,
         connectMetaMask,
         clearError,
         setError,
