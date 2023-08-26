@@ -83,6 +83,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       const accounts = await window.ethereum?.request({
         method: 'eth_requestAccounts',
       })
+      console.log('accounts', accounts)
       clearError()
       updateWallet(accounts)
     } catch (err: any) {
@@ -114,9 +115,6 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
     const clientSDK = new MetaMaskSDK({
       useDeeplink: false,
       communicationServerUrl: 'https://metamask-sdk-socket.metafi.codefi.network/',
-      autoConnect: {
-        enable: true
-      },
       dappMetadata: {
         name: "NFT Tickets",
         url: window.location.host,
