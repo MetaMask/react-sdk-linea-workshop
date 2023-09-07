@@ -24,6 +24,29 @@ const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
   const { wallet, sdkConnected, mints } = useMetaMask()
 
+  const addNft = async (tokenId: string) => {
+    try {
+      await window.ethereum?.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: "ERC721",
+          options: {
+            address: "0xA9d8a5456EB9a9F6FeccaA8dCb3e3867Dcc82559",
+            tokenId: tokenId
+          }
+        }
+      })
+    } catch (err: any) {
+      console.error(err.message)
+    }
+  }
+
+  // const AddNftButton = (tokenId: any) => {
+  //   return (
+      
+  //   )
+  // }
+
   const listOfTickets = ticketCollection.map((ticket) => (
     <div className={styles.svgItem} key={`ticket${ticket.tokenId}`}>
       <img
@@ -32,6 +55,8 @@ const TicketsOwned = () => {
         src={ticket.svgImage}
         alt={`Ticket# ${ticket.tokenId}`}
       />
+      <br />
+      <button id={ticket.tokenId} onClick={() => addNft(ticket.tokenId)}>AddNFT</button>
     </div>
   ))
 

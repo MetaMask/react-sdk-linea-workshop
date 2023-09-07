@@ -28,7 +28,7 @@ export const Navigation = () => {
           }
           <>
             {wallet.accounts.length > 0 &&
-              <div className={styles.tag}>{sdkConnected ? "MOBILE" : "EXTENSION"}</div>
+              <div className={styles.tag}>{!sdkConnected ? "MOBILE" : "EXTENSION"}</div>
             }
             {wallet.accounts.length > 0 && !isSupportedNetwork(wallet.chainId) && (
               <SwitchNetwork />
