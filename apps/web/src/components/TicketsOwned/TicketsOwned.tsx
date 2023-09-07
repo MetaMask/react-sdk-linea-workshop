@@ -41,12 +41,6 @@ const TicketsOwned = () => {
     }
   }
 
-  // const AddNftButton = (tokenId: any) => {
-  //   return (
-      
-  //   )
-  // }
-
   const listOfTickets = ticketCollection.map((ticket) => (
     <div className={styles.svgItem} key={`ticket${ticket.tokenId}`}>
       <img
