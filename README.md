@@ -157,6 +157,7 @@ Test the Frontend with MetaMask Browser Extension
   - Do we get a SwitchChain button and does it work
 - Can we change accounts and see it reflected in the UI
 - Mint a Ticket NFT
+- Add NFT to MetaMask with AddNFT Button
 - See the Ticket NFT show up at bottom of page
 - Disconnect from both accounts and see it reflected in the UI
 - Disable MetaMask Browser Extension
