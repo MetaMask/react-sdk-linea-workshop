@@ -11,27 +11,27 @@
     "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
-    "@metamask/sdk": "^0.6.1",
-    "@metamask/sdk-react": "^0.6.1",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
+    "@metamask/sdk": "^0.7.1",
+    "@metamask/sdk-react": "^0.7.0",
+    "@types/react": "^18.2.23",
+    "@types/react-dom": "^18.2.8",
     "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "json-rpc-engine": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1"
+    "react-icons": "^4.11.0"
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "vite-tsconfig-paths": "^4.2.0",
-    "@vitejs/plugin-react": "^4.0.4",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
-    "@typescript-eslint/parser": "^6.4.0",
-    "eslint": "^8.47.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "@vitejs/plugin-react": "^4.1.0",
+    "eslint": "^8.50.0",
     "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.9"
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vite-tsconfig-paths": "^4.2.1"
   }
 }
