@@ -1,4 +1,4 @@
-import * as contractAbi from '~/lib/contract-abis/ETHTickets.json';
+import * as contractAbi from '~/lib/contract-abis/ETHTickets.json'
 
 export const config = {
   '0x13881': {
