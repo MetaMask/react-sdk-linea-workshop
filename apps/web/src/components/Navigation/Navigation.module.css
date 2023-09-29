@@ -42,7 +42,7 @@
 
 .balance {
   display: inline-block;
-  margin-left: 1em;
+  margin: 0 1em;
 }
 
 .terminate {

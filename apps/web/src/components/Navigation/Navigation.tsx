@@ -28,7 +28,7 @@ export const Navigation = () => {
           }
           <>
             {wallet.accounts.length > 0 &&
-              <div className={styles.tag}>{!sdkConnected ? "MOBILE" : "EXTENSION"}</div>
+              <div className={styles.tag}>{sdk.isExtensionActive() ? "EXTENSION" : "MOBILE"}</div>
             }
             {wallet.accounts.length > 0 && !isSupportedNetwork(wallet.chainId) && (
               <SwitchNetwork />
@@ -55,6 +55,9 @@ export const Navigation = () => {
                 </a>
                 <div className={styles.balance}>
                   {wallet.balance} ETH
+                </div>
+                <div>
+                  <button onClick={() => sdk.terminate()}>DISCONNECT</button>
                 </div>
               </>
             )}
