@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
-import { useMetaMask } from '~/hooks/useMetaMask'
 import { ETHTickets__factory } from 'blockchain'
 import { ethers } from 'ethers'
 import { config, isSupportedNetwork } from '~/lib/config'
 
+const { account } = useSDK()
+
 import { SiEthereum } from 'react-icons/si'
 
 import styles from './Tickets.module.css'
+import { useAppState } from '~/hooks/useAppContext'
+import { useSDK } from '@metamask/sdk-react-ui'
 
 interface Ticket {
   type: string,
@@ -24,7 +27,7 @@ const TicketTypes: React.FC<Ticket> = ({
   description, price, priceHexValue,
 }) => {
 
-  const { wallet, setError, updateMints, sdkConnected } = useMetaMask()
+  const { setError, updateMints } = useAppState()
   const [isMinting, setIsMinting] = useState(false)
 
   const mintTicket = async() => {
@@ -48,10 +51,10 @@ const TicketTypes: React.FC<Ticket> = ({
     
     const nftTickets = factory.attach(config[networkId].contractAddress)
 
-    if (wallet.accounts.length > 0) {
+    if (window.ethereum) {
       nftTickets
       .mintNFT({
-        from: wallet.address!,
+        from: account,
         value: priceHexValue,
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -71,7 +74,7 @@ const TicketTypes: React.FC<Ticket> = ({
     }
   }
 
-  const disableMint = !wallet.address || isMinting
+  const disableMint = !account || isMinting
 
   return (
     <div className={styles.flexItem}>

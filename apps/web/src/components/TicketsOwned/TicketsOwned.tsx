@@ -3,10 +3,11 @@ import { ethers } from 'ethers'
 
 import { ETHTickets__factory } from 'blockchain'
 import { config, isSupportedNetwork } from '../../lib/config'
-import { useMetaMask } from '../../hooks/useMetaMask'
 import styles from './TicketsOwned.module.css'
 
 import * as contractAbi from '~/lib/contract-abis/ETHTickets.json'
+import { useAppState } from '~/hooks/useAppContext'
+import { useSDK } from '@metamask/sdk-react-ui'
 
 type NftData = {
   name: string,
@@ -24,7 +25,8 @@ type TicketFormatted = {
 
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
-  const { wallet, sdkConnected, mints } = useMetaMask()
+  const { mints } = useAppState()
+  const { account, provider, chainId } = useSDK()
 
   console.log(window.ethereum)
 
@@ -61,7 +63,7 @@ const TicketsOwned = () => {
 
   useEffect(() => {
     console.log('ticketsOwned: UseEffect')
-    if (typeof window !== 'undefined' && wallet.address !== null && window.ethereum) {
+    if (typeof window !== 'undefined' && account !== null && window.ethereum) {
 
       const provider = new ethers.providers.Web3Provider(
         window.ethereum as unknown as ethers.providers.ExternalProvider,
@@ -69,14 +71,14 @@ const TicketsOwned = () => {
       const signer = provider.getSigner()
       const factory = new ETHTickets__factory(signer)
 
-      if (!isSupportedNetwork(wallet.chainId)) {
+      if (!isSupportedNetwork(chainId)) {
         return
       }
 
-      const nftTickets = factory.attach(config[wallet.chainId].contractAddress)
+      const nftTickets = factory.attach(config[chainId].contractAddress)
       const ticketsRetrieved: TicketFormatted[] = []
 
-      nftTickets.walletOfOwner(wallet.address)
+      nftTickets.walletOfOwner(account)
         .then((ownedTickets) => {
           const promises = ownedTickets.map(async (token) => {
             const currentTokenId = token.toString()
@@ -98,7 +100,7 @@ const TicketsOwned = () => {
           Promise.all(promises).then(() => setTicketCollection(ticketsRetrieved))
         })
     }
-  }, [wallet.address, mints, wallet.chainId, sdkConnected])
+  }, [account, mints, chainId])
 
   return (
     <div className={styles.ticketsOwnedView}>

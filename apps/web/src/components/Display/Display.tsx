@@ -1,4 +1,3 @@
-import { useMetaMask } from '~/hooks/useMetaMask'
 import { ethers } from 'ethers'
 
 import Tickets from '~/components/Tickets/Tickets'
@@ -6,8 +5,6 @@ import TicketsOwned from '~/components/TicketsOwned/TicketsOwned'
 import styles from './Display.module.css'
 
 export const Display = () => {
-
-  const { wallet } = useMetaMask()
   const bigNumberify = (amt: string) => ethers.utils.parseEther(amt)
 
   const ethGa = '0.01'
