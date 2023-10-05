@@ -4,8 +4,6 @@ import { ETHTickets__factory } from 'blockchain'
 import { ethers } from 'ethers'
 import { config, isSupportedNetwork } from '~/lib/config'
 
-const { account } = useSDK()
-
 import { SiEthereum } from 'react-icons/si'
 
 import styles from './Tickets.module.css'
@@ -29,6 +27,7 @@ const TicketTypes: React.FC<Ticket> = ({
 
   const { setError, updateMints } = useAppState()
   const [isMinting, setIsMinting] = useState(false)
+  const { account } = useSDK()
 
   const mintTicket = async() => {
     setIsMinting(true)
