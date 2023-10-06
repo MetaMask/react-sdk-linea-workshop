@@ -152,27 +152,27 @@ npm run dev:testnet
 
 ### Step #09
 
+Test the Frontend with MetaMask Mobile
+
+- Connect with MetaMask Mobile
+- Switch chains and ensure SwitchChain button shows up in the UI
+- Mint a NFT Ticket
+- See the NFT Ticket show up at bottom of page
+- Disconnect from Metamask Mobile and ensure we are prompted in UI
+- use the terminate button to disconnect
+
+### Step #10
+
 Test the Frontend with MetaMask Browser Extension
 
 - Connect multiple accounts
 - Change chain and see it reflected in the UI
   - Do we get a SwitchChain button and does it work
 - Can we change accounts and see it reflected in the UI
-- Mint a Ticket NFT
+- Mint a NFT Ticket
 - Add NFT to MetaMask with AddNFT Button
-- See the Ticket NFT show up at bottom of page
+- See the NFT Ticket show up at bottom of page
 - Disconnect from both accounts and see it reflected in the UI
-- Disable MetaMask Browser Extension
-
-### Step #10
-
-Test the Frontend with MetaMask Mobile
-
-- Connect with MetaMask Mobile
-- Switch chains and ensure SwitchChain button shows up in the UI
-- Mint a Ticket NFT
-- See the Ticket NFT show up at bottom of page
-- Disconnect from Metamask Mobile and ensure we are prompted in UI
 
 This is just a demo application, but it covers a lot of the basics you would need in a ral world Dapp that uses MetaMask and gives your users the ability to connect to both Browser Extension and Mobile from their Dapp which up until MetaMask SDK was no easy task.
 
