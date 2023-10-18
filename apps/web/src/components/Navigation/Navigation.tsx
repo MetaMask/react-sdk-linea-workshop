@@ -10,7 +10,7 @@ export const Navigation = () => {
     <div className={styles.navigation}>
       <div className={styles.flexContainer}>
         <div className={styles.leftNav}>
-          <SiEthereum /> ETH Atlantis
+          <div><SiEthereum /> ETH Atlantis</div>
         </div>
         <div className={styles.rightNav}>
           <MetaMaskButton theme={'light'} color="white"></MetaMaskButton>

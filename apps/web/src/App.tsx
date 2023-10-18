@@ -16,7 +16,6 @@ export const App = () => {
       name: 'Demo React App',
       url: window.location.host,
     },
-    chainId: '0x89',
   }
 
   return (

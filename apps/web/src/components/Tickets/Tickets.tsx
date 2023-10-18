@@ -27,7 +27,7 @@ const TicketTypes: React.FC<Ticket> = ({
 
   const { setError, updateMints } = useAppState()
   const [isMinting, setIsMinting] = useState(false)
-  const { account } = useSDK()
+  const { account, sdk, connected, connecting, provider, chainId } = useSDK()
 
   const mintTicket = async() => {
     setIsMinting(true)
@@ -83,6 +83,13 @@ const TicketTypes: React.FC<Ticket> = ({
         <button disabled={disableMint} onClick={mintTicket}>
           <SiEthereum /> {isMinting ? 'Minting...' : 'Mint'} Ticket
         </button>
+        {connected &&
+          <>
+            <div>chainid: {chainId}</div>
+            <div>provider.chainId: {provider.chainId}</div>
+            <div>balance: {provider.chainId}</div>
+          </>
+        }
       </div>
     </div>
   )
