@@ -6,6 +6,8 @@ import { config, isSupportedNetwork } from '../../lib/config'
 import { useMetaMask } from '../../hooks/useMetaMask'
 import styles from './TicketsOwned.module.css'
 
+import * as contractAbi from '~/lib/contract-abis/ETHTickets.json'
+
 type NftData = {
   name: string,
   description: string,
@@ -24,6 +26,25 @@ const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
   const { wallet, sdkConnected, mints } = useMetaMask()
 
+  console.log(window.ethereum)
+
+  const addNft = async (tokenId: string) => {
+    try {
+      await window.ethereum?.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: "ERC721",
+          options: {
+            address: contractAbi.networks[Number('0xe704')].address,
+            tokenId: tokenId
+          }
+        }
+      })
+    } catch (err: any) {
+      console.error(err.message)
+    }
+  }
+
   const listOfTickets = ticketCollection.map((ticket) => (
     <div className={styles.svgItem} key={`ticket${ticket.tokenId}`}>
       <img
@@ -32,6 +53,9 @@ const TicketsOwned = () => {
         src={ticket.svgImage}
         alt={`Ticket# ${ticket.tokenId}`}
       />
+      <div>
+        <button id={ticket.tokenId} onClick={() => addNft(ticket.tokenId)}>AddNFT</button>
+      </div>
     </div>
   ))
 

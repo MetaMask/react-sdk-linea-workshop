@@ -28,7 +28,7 @@ interface MetaMaskContextData {
 
 const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '', address: '' }
 const MetaMaskContext = createContext<MetaMaskContextData>({} as MetaMaskContextData)
-let _initialized = false;
+let _initialized = false
 
 export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
   const [sdk, setSDK] = useState<MetaMaskSDK>()
@@ -45,7 +45,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
   // useCallback ensures that we don't uselessly re-create the _updateWallet function on every render
   const _updateWallet = useCallback(async (providedAccounts?: any) => {
-    let accounts: any[] = [];
+    let accounts: any[] = []
     try {
       accounts = providedAccounts || await window.ethereum?.request(
         { method: 'eth_accounts' },
@@ -95,20 +95,20 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
   // Setup provider listener when switching between extension / mobile
   useEffect(() => {
     if (!sdk)
-      return;
+      return
 
     console.debug(`setup provider listener`)
     const onProviderEvent = async (accounts) => {
       console.debug(`onProviderEvent: `, accounts)
       if (accounts) {
-        setSdkConnected(true);
+        setSdkConnected(true)
       }
       setTrigger((_trigger) => _trigger + 1)
     }
-    sdk.on(EventType.PROVIDER_UPDATE, onProviderEvent);
+    sdk.on(EventType.PROVIDER_UPDATE, onProviderEvent)
     return () => {
-      sdk.removeListener(EventType.PROVIDER_UPDATE, onProviderEvent);
-    };
+      sdk.removeListener(EventType.PROVIDER_UPDATE, onProviderEvent)
+    }
   }, [sdk])
 
   useEffect(() => {
@@ -159,7 +159,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       window.ethereum?.removeListener('chainChanged', updateWalletAndAccounts)
       window.ethereum?.removeListener('disconnect', disconnectWallet)
     }
-  }, [trigger]);
+  }, [trigger])
 
   return (
     <MetaMaskContext.Provider

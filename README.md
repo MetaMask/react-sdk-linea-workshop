@@ -129,12 +129,14 @@ npm run deploy:mumbai --workspace blockchain
 
 ### Step #07
 
-Copy the contract address to the `apps/web/lib/config.ts`:
+In case you came to this repo from an older companion video, this workshop no longer requires you to copy the contract address from the deployed contract into the `apps/web/src/lib/config.ts` file. Below you will see that our specified chain `Linea` (or any other) looks to the `contractAbi.networks.address` inside of our ABI to find the contract address. So long as you have updated the `apps/web/.env` files `VITE_PUBLIC_NETWORK_ID` to target the specific chainId (using the hex value of the chain), and considering you have deployed a contract successfully to that chain, there is no other work on your part. It's automatic:
+
+Ensure that the key in your `apps/web/src/lib/config.ts` file matches the network key: `networks[Number('0xe704')]`. This is all that needs to be done.
 
 ```ts
   '0xe704': {
     name: 'Linea',
-    contractAddress: '[CONTRACT-ADDRESS]',
+    contractAddress: contractAbi.networks[Number('0xe704')]?.address,
     symbol: 'LineaETH',
     blockExplorer: 'https://explorer.goerli.linea.build',
     rpcUrl: 'https://rpc.goerli.linea.build',
@@ -157,6 +159,7 @@ Test the Frontend with MetaMask Browser Extension
   - Do we get a SwitchChain button and does it work
 - Can we change accounts and see it reflected in the UI
 - Mint a Ticket NFT
+- Add NFT to MetaMask with AddNFT Button
 - See the Ticket NFT show up at bottom of page
 - Disconnect from both accounts and see it reflected in the UI
 - Disable MetaMask Browser Extension
