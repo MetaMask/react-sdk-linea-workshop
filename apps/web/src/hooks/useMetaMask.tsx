@@ -111,6 +111,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
     }
   }, [sdk])
 
+  // instantiate SDK in useEffect
   useEffect(() => {
     const clientSDK = new MetaMaskSDK({
       useDeeplink: false,
