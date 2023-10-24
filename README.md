@@ -107,13 +107,13 @@ Get some LineaETH from the Infura Faucet located at: [infura.io/faucet/linea](ht
 
 ### Step #05
 
-Build project and compile contracts to generate `apps/web/contract-abis`:
+Compile to generate `apps/web/contract-abis`:
 
 ```bash
 cd apps/blockchain && truffle compile && cd ../..
 ```
 
-then
+Build the entire project checking for errors etc:
 
 ```bash
 npm run build

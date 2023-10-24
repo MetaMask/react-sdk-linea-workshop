@@ -22,6 +22,8 @@ type TicketFormatted = {
   ticketType: { trait_type: string, value: string }
 }
 
+const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
+
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
   const { wallet, sdkConnected, mints } = useMetaMask()
@@ -29,13 +31,18 @@ const TicketsOwned = () => {
   console.log(window.ethereum)
 
   const addNft = async (tokenId: string) => {
+
+    console.log(`tokenId: `, tokenId)
+    console.log(`networkId: `, Number(networkId))
+    console.log(`address: `, contractAbi.networks[Number(networkId)].address)
+
     try {
       await window.ethereum?.request({
         method: 'wallet_watchAsset',
         params: {
           type: "ERC721",
           options: {
-            address: contractAbi.networks[Number('0xe704')].address,
+            address: contractAbi.networks[Number(networkId)].address,
             tokenId: tokenId
           }
         }
