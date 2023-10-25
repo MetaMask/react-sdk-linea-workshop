@@ -56,7 +56,7 @@ const TicketsOwned = () => {
         alt={`Ticket# ${ticket.tokenId}`}
       />
       <div>
-        <button id={ticket.tokenId} onClick={() => addNft(ticket.tokenId)}>AddNFT</button>
+        <button className="dapp" id={ticket.tokenId} onClick={() => addNft(ticket.tokenId)}>AddNFT</button>
       </div>
     </div>
   ))

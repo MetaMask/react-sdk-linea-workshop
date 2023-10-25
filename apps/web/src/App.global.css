@@ -1,31 +1,7 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: #000;
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-:root button {
-  color: #FFF !important;
-}
-
-a {
-  font-weight: 500;
-  color: #e757fa;
-  text-decoration: underline;
-}
-a:hover {
-  color: #2bf9f9;
-}
+/* *, :after, :before {
+  border: 0 solid #e5e7eb;
+  box-sizing: content-box !important;
+}  */
 
 body {
   margin: 0;
@@ -34,12 +10,25 @@ body {
   min-width: 320px;
 }
 
-h1 {
+button.dapp {
+  color: #FFF !important;
+}
+
+a.dapp {
+  font-weight: 500;
+  color: #e757fa;
+  text-decoration: underline;
+}
+a.dapp:hover {
+  color: #2bf9f9;
+}
+
+h1.dapp {
   font-size: 3.2em;
   line-height: 1.1;
 }
 
-#root button {
+button.dapp {
   border-radius: 6px;
 
   box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
@@ -67,11 +56,11 @@ h1 {
   user-select: none;
 }
 
-#root button:hover {
+button.dapp:hover {
   background-color: #244982;
 }
 
-#root button:disabled {
+button.dapp:disabled {
   background-color: #244982;
   color: #7697C8;
   cursor: not-allowed;
@@ -82,10 +71,10 @@ h1 {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
+  a.dapp:hover {
     color: #747bff;
   }
-  button {
+  button.dapp {
     background-color: #f9f9f9;
   }
 }

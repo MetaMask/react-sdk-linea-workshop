@@ -30,6 +30,7 @@ const TicketTypes: React.FC<Ticket> = ({
   const { account, sdk, connected, connecting, provider, chainId } = useSDK()
 
   const mintTicket = async() => {
+    console.log("starting to mint")
     setIsMinting(true)
 
     const provider = new ethers.providers.Web3Provider(
@@ -80,16 +81,16 @@ const TicketTypes: React.FC<Ticket> = ({
       <div className={styles.ticketType}>
         <h2>{description}</h2>
         <p>{price} ETH</p>
-        <button disabled={disableMint} onClick={mintTicket}>
+        <button className="dapp" disabled={disableMint} onClick={mintTicket}>
           <SiEthereum /> {isMinting ? 'Minting...' : 'Mint'} Ticket
         </button>
-        {connected &&
+        {/* {connected &&
           <>
             <div>chainid: {chainId}</div>
             <div>provider.chainId: {provider.chainId}</div>
             <div>balance: {provider.chainId}</div>
           </>
-        }
+        } */}
       </div>
     </div>
   )
