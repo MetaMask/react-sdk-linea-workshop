@@ -66,7 +66,7 @@ button.dapp:disabled {
   cursor: not-allowed;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -77,7 +77,7 @@ button.dapp:disabled {
   button.dapp {
     background-color: #f9f9f9;
   }
-}
+} */
 
 @media only screen and (max-width: 600px) {
   :root {
