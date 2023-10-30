@@ -110,6 +110,7 @@ Get some LineaETH from the Infura Faucet located at: [infura.io/faucet/linea](ht
 Build project and compile contracts to generate `apps/web/contract-abis`:
 
 ```bash
+npm run compile --workspace blockchain
 npm run build
 ```
 
