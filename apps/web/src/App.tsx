@@ -1,64 +1,44 @@
 import './App.global.css'
 import styles from './App.module.css'
 
-import { MetaMaskUIProvider } from '@metamask/sdk-react-ui'
-
 import { Navigation } from './components/Navigation'
 import { Display } from './components/Display'
 import { MetaMaskError } from './components/MetaMaskError'
 import { AppContextProvider } from './hooks/useAppContext'
 
-import { WagmiConfig, createConfig, configureChains } from 'wagmi'
-import { lineaTestnet } from '@wagmi/core/chains'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-
-const { chains, publicClient } = configureChains(
-  [lineaTestnet],
-  [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: "https://linea-goerli.infura.io/v3/305727869d444a8f8e17345b4d8b32e7"
-      }),
-    })]
-  ,
-)
-
-const config = createConfig({
-  autoConnect: true,
-  publicClient,
-  connectors: [
-    new InjectedConnector({
-      chains,
-      options: {
-        name: 'injected',
-        shimDisconnect: true
-      }
-    })
-  ],
+// Web3 Onboard Imports
+import { Web3OnboardProvider, init } from '@web3-onboard/react'
+import injectedModule from '@web3-onboard/injected-wallets'
+const INFURA_KEY = import.meta.env.VITE_PUBLIC_INFURA_PROJECT_ID
+const ethereumLinea = {
+  id: '0xe704',
+  token: 'ETH',
+  label: 'Linea Testnet',
+  rpcUrl: `https://linea-goerli.infura.io/v3/${INFURA_KEY}`
+}
+const chains = [ethereumLinea]
+const wallets = [injectedModule()]
+const web3Onboard = init({
+  wallets,
+  chains,
+  appMetadata: {
+    name: 'ETH Atlantis',
+    icon: '<svg>App Icon</svg>',
+    description: 'A demo of Web3-Onboard for the ETH Atlantis (MM SDK + Linea Workshop).'
+  }
 })
 
 export const App = () => {
-  const sdkOptions = {
-    logging: { developerMode: false },
-    checkInstallationImmediately: false, // This will automatically connect to MetaMask on page load
-    dappMetadata: {
-      name: 'Demo React App',
-      url: window.location.host,
-    },
-  }
 
   return (
-    <WagmiConfig config={config}>
+    <Web3OnboardProvider web3Onboard={web3Onboard}>
       <AppContextProvider>
-        <MetaMaskUIProvider sdkOptions={sdkOptions}>
-          <div className={styles.appContainer}>
-            <Navigation />
-            <Display />
-            <MetaMaskError />
-          </div>
-        </MetaMaskUIProvider>
+        <div className={styles.appContainer}>
+          <Navigation />
+          <Display />
+          <MetaMaskError />
+        </div>
       </AppContextProvider>
-    </WagmiConfig>
+    </Web3OnboardProvider>
   )
 }

@@ -1,10 +1,13 @@
 import { SiEthereum } from 'react-icons/si'
-import { MetaMaskButton } from '@metamask/sdk-react-ui'
 import styles from './Navigation.module.css'
+
+// Web3 Onboard Imports
+import { useConnectWallet } from '@web3-onboard/react'
 
 export const Navigation = () => {
 
   const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
+  const [{ wallet }, connect, disconnect, updateBalances, setWalletModules] = useConnectWallet()
 
   return (
     <div className={styles.navigation}>
@@ -13,7 +16,26 @@ export const Navigation = () => {
           <div><SiEthereum /> ETH Atlantis</div>
         </div>
         <div className={styles.rightNav}>
-          <MetaMaskButton theme={'light'} color="white"></MetaMaskButton>
+          {!wallet && (
+            <button
+              className="dapp"
+              onClick={async () => {
+                const walletsConnected = await connect()
+                console.log('connected wallets: ', walletsConnected)
+              }}
+            >
+              CONNECT
+            </button>
+          )}
+          {wallet && (
+            <button className="dapp" onClick={async () => {
+              const walletsConnected = await disconnect(wallet)
+              console.log('connected wallets: ', walletsConnected)
+              window.localStorage.removeItem('connectedWallets')
+            }}>
+              DISCONNECT
+            </button>
+          )}
         </div>
       </div>
     </div>
