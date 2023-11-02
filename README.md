@@ -91,16 +91,6 @@ Notice that the API Key (`INFURA_PROJECT_ID`) and the `PRIVATE_KEY` that we just
     },
 ```
 
-You can also check out the [Truffle Network Configuration docs](https://trufflesuite.com/docs/truffle/reference/configuration/#networks) if you want to know what properties of the network config are and their defaults.
-
-Also, the `VITE_PUBLIC_NETWORK_ID` (hex version of chainId) is being used in the web workspace in the following files:
-
-- `apps/web/src/components/Navigation/Navigation.tsx`
-- `apps/web/src/components/Tickets/Tickets.tsx`
-- `apps/web/src/hooks/useSwitchNetwork.tsx`
-- `apps/web/src/lib/config.ts`
-- `~turbo.json`
-
 ### Step #04
 
 Get some LineaETH from the Infura Faucet located at: [infura.io/faucet/linea](https://www.infura.io/faucet/linea)
@@ -110,7 +100,7 @@ Get some LineaETH from the Infura Faucet located at: [infura.io/faucet/linea](ht
 Compile to generate `apps/web/contract-abis`:
 
 ```bash
-cd apps/blockchain && truffle compile && cd ../..
+cd apps/blockchain && hardhat compile && cd ../..
 ```
 
 Build the entire project checking for errors etc:
