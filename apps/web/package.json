@@ -13,9 +13,7 @@
   "dependencies": {
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
-    "@web3-onboard/core": "^2.21.2",
-    "@web3-onboard/injected-wallets": "^2.10.8",
-    "@web3-onboard/metamask": "^2.0.0",
+    "@web3-onboard/metamask": "^2.0.1-alpha.2",
     "@web3-onboard/react": "^2.8.13",
     "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
