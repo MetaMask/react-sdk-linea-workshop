@@ -6,7 +6,7 @@ import { config, isSupportedNetwork } from '../../lib/config'
 import { useMetaMask } from '../../hooks/useMetaMask'
 import styles from './TicketsOwned.module.css'
 
-import * as contractAbi from '~/lib/contract-abis/ETHTickets.json'
+import * as contractAbi from 'chain/abi'
 
 type NftData = {
   name: string,

@@ -1,19 +1,18 @@
 {
   "name": "chain",
-  "main": "typechain/index.ts",
+  "exports": {
+    ".": "./typechain-types/index.ts",
+    "./abi": "./artifacts/contracts"
+  },
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "npx hardhat compile && node scripts/generate_types.js",
-    "compile": "npx hardhat compile",
-    "migrate": "truffle migrate",
+    "build": "npx hardhat compile",
     "test": "truffle test",
     "local": "truffle develop --log",
     "dev": "npm run migrate --development",
-    "deploy:goerli": "truffle migrate --network goerli",
-    "deploy:mumbai": "truffle migrate --network mumbai",
-    "deploy:linea": "truffle migrate --network linea",
-    "hh-deploy:linea": "npx hardhat run --network linea scripts/deploy.js"
+    "deploy:mumbai": "npx hardhat run --network mumbai scripts/deploy.ts",
+    "deploy:linea": "npx hardhat run --network lineaTestnet scripts/deploy.ts"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",

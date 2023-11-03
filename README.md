@@ -115,13 +115,13 @@ npm run build
 Deploy contract on Linea: 
 
 ```bash
-npm run deploy:linea --workspace blockchain
+npm run deploy:lineaTestnet --workspace chain
 ```
 
 Deploy contract on Mumbai: 
 
 ```bash
-npm run deploy:mumbai --workspace blockchain
+npm run deploy:mumbai --workspace chain
 ```
 
 ### Step #07

@@ -1,4 +1,4 @@
-import * as contractAbi from '~/lib/contract-abis/ETHTickets.json'
+import * as contractAbi from '../../../chain/artifacts/contracts'
 
 export const config = {
   '0x13881': {
@@ -10,14 +10,14 @@ export const config = {
   },
   '0xe704': {
     name: 'Linea',
-    contractAddress: contractAbi.networks[Number('0xe704')]?.address,
+    contractAddress: '0x27722D84828B7a0CC41927A8a1092177B9313D1c',
     symbol: 'LineaETH',
     blockExplorer: 'https://explorer.goerli.linea.build',
     rpcUrl: 'https://rpc.goerli.linea.build',
   },
   '0x5': {
     name: 'Goerli',
-    contractAddress: contractAbi.networks[Number('0x5')]?.address,
+    contractAddress: '',//contractAbi.networks[Number('0x5')]?.address,
     symbol: 'ETH',
     blockExplorer: 'https://goerli.etherscan.io',
     rpcUrl: 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
