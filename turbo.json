@@ -1,5 +1,5 @@
 {
-  "globalEnv": ["VITE_PUBLIC_NETWORK_ID", "VITE_PUBLIC_INFURA_PROJECT_ID"],
+  "globalEnv": ["VITE_PUBLIC_NETWORK_ID", "VITE_PUBLIC_INFURA_API_KEY"],
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {

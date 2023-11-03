@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 
-import { ETHTickets__factory } from 'blockchain'
+import { ETHTickets__factory } from 'chain'
 import { config, isSupportedNetwork } from '../../lib/config'
 import { useMetaMask } from '../../hooks/useMetaMask'
 import styles from './TicketsOwned.module.css'

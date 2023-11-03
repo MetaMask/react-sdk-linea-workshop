@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
 import { useMetaMask } from '~/hooks/useMetaMask'
-import { ETHTickets__factory } from 'blockchain'
+import { ETHTickets__factory } from 'chain'
 import { ethers } from 'ethers'
 import { config, isSupportedNetwork } from '~/lib/config'
 

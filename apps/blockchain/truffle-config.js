@@ -77,7 +77,7 @@ module.exports = {
       provider: function () {
         return new HDWalletProvider({
           privateKeys: [process.env.PRIVATE_KEY],
-          provider: `https://goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+          provider: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
         });
       },
       network_id: 5,
@@ -86,7 +86,7 @@ module.exports = {
       provider: function () {
         return new HDWalletProvider({
           privateKeys: [process.env.PRIVATE_KEY],
-          provider: `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+          provider: `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_API_KEY}`,
         });
       },
       network_id: 80001,
@@ -95,7 +95,7 @@ module.exports = {
       provider: function () {
         return new HDWalletProvider({
           privateKeys: [process.env.PRIVATE_KEY],
-          provider: `https://linea-goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+          provider: `https://linea-goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
         });
       },
       network_id: 59140,
