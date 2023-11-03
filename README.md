@@ -106,6 +106,7 @@ cd apps/blockchain && hardhat compile && cd ../..
 Build the entire project checking for errors etc:
 
 ```bash
+npm run compile --workspace chain
 npm run build
 ```
 
