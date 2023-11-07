@@ -1,17 +1,16 @@
-import { useMetaMask } from "~/hooks/useMetaMask";
-import { parseEther } from "ethers";
+// import { parseEther } from "ethers";
 
 import Tickets from "~/components/Tickets/Tickets";
 import TicketsOwned from "~/components/TicketsOwned/TicketsOwned";
 import styles from "./Display.module.css";
 
 export const Display = () => {
-  const bigNumberify = (amt: string) => parseEther(amt);
+  const bigNumberify = (amt: string) => BigInt(amt);
 
   const ethGa = "0.01";
   const ethVip = "0.02";
-  const ethGaHex = bigNumberify(ethGa).hex;
-  const ethVipHex = bigNumberify(ethVip)._hex;
+  const ethGaHex = bigNumberify(ethGa).toString(16);
+  const ethVipHex = bigNumberify(ethVip).toString(16);
   const tickets = [
     {
       type: "ga",
