@@ -33,4 +33,4 @@ yarn-error.log*
 .turbo
 .env
 
-/apps/web/src/lib/contract-abis/*
+/apps/web/src/lib/artifacts/*
