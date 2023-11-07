@@ -1,0 +1,19 @@
+{
+  "name": "@workshop/blockchain",
+  "version": "0.1.0",
+  "main": "typechain-types/index.ts",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "base64-sol": "^1.1.0",
+    "hardhat": "^2.19.0"
+  },
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "deploy:lineatest": "hardhat run scripts/deploy.ts --network lineaTestnet",
+    "deploy:mumbai": "hardhat run scripts/deploy.ts --network mumbai",
+    "build": "hardhat compile && hardhat deploy:lineatest"
+  }
+}

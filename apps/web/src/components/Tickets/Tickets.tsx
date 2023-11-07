@@ -1,77 +1,81 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
-import { useMetaMask } from '~/hooks/useMetaMask'
-import { ETHTickets__factory } from 'chain'
-import { ethers } from 'ethers'
-import { config, isSupportedNetwork } from '~/lib/config'
+import { useState } from "react";
+import { useMetaMask } from "~/hooks/useMetaMask";
+import { ETHTickets__factory } from "@workshop/blockchain";
+import { ethers } from "ethers";
+import config from "~/lib/config.json";
 
-import { SiEthereum } from 'react-icons/si'
+import { SiEthereum } from "react-icons/si";
 
-import styles from './Tickets.module.css'
+import styles from "./Tickets.module.css";
+import { isSupportedNetwork } from "~/lib/isSupportedNetwork";
 
 interface Ticket {
-  type: string,
-  event: string,
-  description: string,
-  price: string,
-  priceHexValue: string,
+  type: string;
+  event: string;
+  description: string;
+  price: string;
+  priceHexValue: string;
 }
 interface TicketsProps {
-  tickets: Ticket[],
+  tickets: Ticket[];
 }
 
 const TicketTypes: React.FC<Ticket> = ({
-  description, price, priceHexValue,
+  description,
+  price,
+  priceHexValue,
 }) => {
+  const { wallet, setError, updateMints, sdkConnected } = useMetaMask();
+  const [isMinting, setIsMinting] = useState(false);
 
-  const { wallet, setError, updateMints, sdkConnected } = useMetaMask()
-  const [isMinting, setIsMinting] = useState(false)
-
-  const mintTicket = async() => {
-    setIsMinting(true)
+  const mintTicket = async () => {
+    setIsMinting(true);
 
     const provider = new ethers.providers.Web3Provider(
-      window.ethereum as unknown as ethers.providers.ExternalProvider,
-    )
-    // In ethers.js, providers allow you to query data from the blockchain. 
-    // They represent the way you connect to the blockchain. 
+      window.ethereum as unknown as ethers.providers.ExternalProvider
+    );
+    // In ethers.js, providers allow you to query data from the blockchain.
+    // They represent the way you connect to the blockchain.
     // With them you can only call view methods on contracts and get data from those contract.
     // Signers are authenticated providers connected to the current address in MetaMask.
-    const signer = provider.getSigner()
+    const signer = provider.getSigner();
 
-    const factory = new ETHTickets__factory(signer)
-    const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
-    
-    if(!isSupportedNetwork(networkId)) {
-      throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
+    const factory = new ETHTickets__factory(signer);
+    const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
+
+    if (!isSupportedNetwork(networkId)) {
+      throw new Error(
+        "Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local"
+      );
     }
-    
-    const nftTickets = factory.attach(config[networkId].contractAddress)
+
+    const nftTickets = factory.attach(config[networkId].contractAddress);
 
     if (wallet.accounts.length > 0) {
       nftTickets
-      .mintNFT({
-        from: wallet.address!,
-        value: priceHexValue,
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then(async (tx: any) => {
-        console.log('minting accepted')
-        await tx.wait(1)
-        console.log(`Minting complete, mined: ${tx}`)
-        updateMints()
-        setIsMinting(false)
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .catch((error: any) => {
-        console.log(error)
-        setError(error?.code)
-        setIsMinting(false)
-      })
+        .mintNFT({
+          from: wallet.address!,
+          value: priceHexValue,
+        })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .then(async (tx: any) => {
+          console.log("minting accepted");
+          await tx.wait(1);
+          console.log(`Minting complete, mined: ${tx}`);
+          updateMints();
+          setIsMinting(false);
+        })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .catch((error: any) => {
+          console.log(error);
+          setError(error?.code);
+          setIsMinting(false);
+        });
     }
-  }
+  };
 
-  const disableMint = !wallet.address || isMinting
+  const disableMint = !wallet.address || isMinting;
 
   return (
     <div className={styles.flexItem}>
@@ -79,12 +83,12 @@ const TicketTypes: React.FC<Ticket> = ({
         <h2>{description}</h2>
         <p>{price} ETH</p>
         <button disabled={disableMint} onClick={mintTicket}>
-          <SiEthereum /> {isMinting ? 'Minting...' : 'Mint'} Ticket
+          <SiEthereum /> {isMinting ? "Minting..." : "Mint"} Ticket
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Tickets = ({ tickets }: TicketsProps) => {
   return (
@@ -96,7 +100,7 @@ const Tickets = ({ tickets }: TicketsProps) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Tickets
+export default Tickets;
