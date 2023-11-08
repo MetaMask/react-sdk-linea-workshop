@@ -37,7 +37,7 @@ const TicketTypes: React.FC<Ticket> = ({
     // They represent the way you connect to the blockchain.
     // With them you can only call view methods on contracts and get data from those contract.
     // Signers are authenticated providers connected to the current address in MetaMask.
-    const signer = provider.getSigner();
+    const signer = await provider.getSigner();
 
     const factory = new ETHTickets__factory(signer);
     const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
