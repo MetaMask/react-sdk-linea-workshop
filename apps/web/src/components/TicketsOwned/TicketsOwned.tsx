@@ -67,17 +67,20 @@ const TicketsOwned = () => {
   ));
 
   useEffect(() => {
-    console.log("ticketsOwned: UseEffect");
     if (
       typeof window !== "undefined" &&
       wallet.address !== null &&
       window.ethereum
     ) {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum as unknown as ethers.providers.ExternalProvider
-      );
-      const signer = provider.getSigner();
-      const factory = new ETHTickets__factory(signer);
+      let factory = null;
+      const getSigner = async () => {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        factory = new ETHTickets__factory(signer);
+      }
+    
+      // call the function
+      getSigner()
 
       if (!isSupportedNetwork(wallet.chainId)) {
         return;
