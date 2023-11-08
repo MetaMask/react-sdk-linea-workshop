@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { useMetaMask } from "~/hooks/useMetaMask";
-import { ethers } from "ethers";
-import config from "~/lib/config.json";
+import { useState } from "react"
+import { useMetaMask } from "~/hooks/useMetaMask"
+import { ethers } from "ethers"
+import config from "~/lib/config.json"
 
-import { SiEthereum } from "react-icons/si";
+import { SiEthereum } from "react-icons/si"
 
-import styles from "./Tickets.module.css";
-import { isSupportedNetwork } from "~/lib/isSupportedNetwork";
+import styles from "./Tickets.module.css"
+import { isSupportedNetwork } from "~/lib/isSupportedNetwork"
 
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
-import { ETHTickets } from "@workshop/blockchain";
+import { ETHTickets } from "@workshop/blockchain"
 
 interface Ticket {
-  type: string;
-  event: string;
-  description: string;
-  price: string;
-  priceHexValue: string;
+  type: string
+  event: string
+  description: string
+  price: string
+  priceHexValue: string
 }
 interface TicketsProps {
-  tickets: Ticket[];
+  tickets: Ticket[]
 }
 
 const TicketTypes: React.FC<Ticket> = ({
@@ -27,33 +27,29 @@ const TicketTypes: React.FC<Ticket> = ({
   price,
   priceHexValue,
 }) => {
-  const { wallet, setError, updateMints } = useMetaMask();
-  const [isMinting, setIsMinting] = useState(false);
+  const { wallet, setError, updateMints } = useMetaMask()
+  const [isMinting, setIsMinting] = useState(false)
 
   const mintTicket = async () => {
-    setIsMinting(true);
+    setIsMinting(true)
 
     // A provider allows you connection to and ability to query data from Ethereum.
     // With them you can only call view methods on contracts and get data from those contracts.
-    const provider = new ethers.BrowserProvider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum)
 
     // Signers are authenticated providers connected to the current address in MetaMask.
-    const signer = await provider.getSigner();
+    const signer = await provider.getSigner()
 
-    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID;
+    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
     if (!isSupportedNetwork(chainId)) {
-      throw new Error(
-        "Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local"
-      );
+      throw new Error("Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local")
     }
 
     if (wallet.accounts.length > 0) {
       const nftTickets = new ethers.Contract(
-        config[chainId].contractAddress,
-        abi,
-        signer
-      ) as unknown as ETHTickets;
+        config[chainId].contractAddress, abi, signer
+      ) as unknown as ETHTickets
 
       nftTickets
         .mintNFT({
@@ -61,21 +57,21 @@ const TicketTypes: React.FC<Ticket> = ({
           value: priceHexValue,
         })
         .then(async (tx: any) => {
-          console.log("minting accepted");
-          await tx.wait(1);
-          console.log(`Minting complete, mined: ${tx}`);
-          updateMints();
-          setIsMinting(false);
+          console.log("minting accepted")
+          await tx.wait(1)
+          console.log(`Minting complete, mined: ${tx}`)
+          updateMints()
+          setIsMinting(false)
         })
         .catch((error: any) => {
-          console.log(error);
-          setError(error?.code);
-          setIsMinting(false);
-        });
+          console.log(error)
+          setError(error?.code)
+          setIsMinting(false)
+        })
     }
-  };
+  }
 
-  const disableMint = !wallet.address || isMinting;
+  const disableMint = !wallet.address || isMinting
 
   return (
     <div className={styles.flexItem}>
@@ -87,8 +83,8 @@ const TicketTypes: React.FC<Ticket> = ({
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Tickets = ({ tickets }: TicketsProps) => {
   return (
@@ -100,7 +96,7 @@ const Tickets = ({ tickets }: TicketsProps) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Tickets;
+export default Tickets

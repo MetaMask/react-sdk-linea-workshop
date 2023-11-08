@@ -1,21 +1,21 @@
-import { SiEthereum } from "react-icons/si";
-import { useMetaMask } from "~/hooks/useMetaMask";
-import { formatAddress, formatChainAsNum } from "~/utils";
-import config from "~/lib/config.json";
-import SwitchNetwork from "~/components/SwitchNetwork/SwitchNetwork";
-import styles from "./Navigation.module.css";
-import { isSupportedNetwork } from "~/lib/isSupportedNetwork";
+import { SiEthereum } from "react-icons/si"
+import { useMetaMask } from "~/hooks/useMetaMask"
+import { formatAddress, formatChainAsNum } from "~/utils"
+import config from "~/lib/config.json"
+import SwitchNetwork from "~/components/SwitchNetwork/SwitchNetwork"
+import styles from "./Navigation.module.css"
+import { isSupportedNetwork } from "~/lib/isSupportedNetwork"
 
 export const Navigation = () => {
   const { wallet, isConnecting, connectMetaMask, sdk, sdkConnected } =
-    useMetaMask();
-  const networkId = import.meta.env.VITE_PUBLIC_CHAIN_ID;
-  const walletChainSupported = isSupportedNetwork(wallet.chainId);
+    useMetaMask()
+  const networkId = import.meta.env.VITE_PUBLIC_CHAIN_ID
+  const walletChainSupported = isSupportedNetwork(wallet.chainId)
 
   // now chainInfo is strongly typed or fallback to linea if not a valid chain
   const chainInfo = isSupportedNetwork(networkId)
     ? config[networkId]
-    : config["0xe704"];
+    : config["0xe704"]
 
   return (
     <div className={styles.navigation}>
@@ -67,5 +67,5 @@ export const Navigation = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,6 +1,6 @@
-import Tickets from "~/components/Tickets/Tickets";
-import TicketsOwned from "~/components/TicketsOwned/TicketsOwned";
-import styles from "./Display.module.css";
+import Tickets from "~/components/Tickets/Tickets"
+import TicketsOwned from "~/components/TicketsOwned/TicketsOwned"
+import styles from "./Display.module.css"
 
 export const Display = () => {
   const ethGa = '0.01'
@@ -23,7 +23,7 @@ export const Display = () => {
       price: ethVip,
       priceHexValue: ethVipHex,
     },
-  ];
+  ]
 
   console.log(tickets)
 
@@ -32,5 +32,5 @@ export const Display = () => {
       <Tickets tickets={tickets} />
       <TicketsOwned />
     </div>
-  );
-};
+  )
+}
