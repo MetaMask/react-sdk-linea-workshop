@@ -39,16 +39,16 @@ const TicketTypes: React.FC<Ticket> = ({
     // Signers are authenticated providers connected to the current address in MetaMask.
     const signer = await provider.getSigner();
 
-    const factory = new ETHTickets__factory(signer);
-    const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
+    const factory:any = new ETHTickets__factory(signer);
+    const chainId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
 
-    if (!isSupportedNetwork(networkId)) {
+    if (!isSupportedNetwork(chainId)) {
       throw new Error(
         "Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local"
       );
     }
 
-    const nftTickets = factory.attach(config[networkId].contractAddress);
+    const nftTickets = factory.attach(config[chainId].contractAddress);
 
     if (wallet.accounts.length > 0) {
       nftTickets

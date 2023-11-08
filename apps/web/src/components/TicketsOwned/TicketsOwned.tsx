@@ -79,7 +79,6 @@ const TicketsOwned = () => {
         factory = new ETHTickets__factory(signer);
       }
     
-      // call the function
       getSigner()
 
       if (!isSupportedNetwork(wallet.chainId)) {

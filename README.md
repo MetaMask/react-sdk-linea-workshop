@@ -109,7 +109,7 @@ npm run build
 Deploy contract on Linea: 
 
 ```bash
-npm run deploy:lineaTestnet --workspace chain
+npm run deploy:lineatest --workspace @workshop/blockchain
 ```
 
 Deploy contract on Mumbai: 
