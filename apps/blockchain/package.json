@@ -1,33 +1,19 @@
 {
-  "name": "blockchain",
-  "main": "typechain/index.ts",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "build": "truffle compile && node scripts/generate_types.js",
-    "compile": "truffle compile",
-    "migrate": "truffle migrate",
-    "test": "truffle test",
-    "local": "truffle develop --log",
-    "dev": "npm run migrate --development",
-    "deploy:goerli": "truffle migrate --network goerli",
-    "deploy:mumbai": "truffle migrate --network mumbai",
-    "deploy:linea": "truffle migrate --network linea"
-  },
+  "name": "@workshop/blockchain",
+  "version": "0.1.0",
+  "main": "typechain-types/index.ts",
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "@openzeppelin/contracts": "^4.9.3",
-    "@truffle/hdwallet-provider": "^2.1.15",
-    "@typechain/ethers-v5": "^10.2.0",
-    "@typechain/truffle-v5": "^8.0.2",
-    "@types/chai": "^4.3.6",
-    "@types/mocha": "^10.0.2",
-    "@types/node": "^20.7.0",
     "base64-sol": "^1.1.0",
-    "ganache": "^7.9.1",
-    "truffle": "^5.11.5",
-    "truffle-flattener": "^1.6.0",
-    "ts-node": "^10.9.1",
-    "typechain": "^8.3.1",
-    "typescript": "^5.2.2"
+    "hardhat": "^2.19.0"
+  },
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "deploy:lineatest": "hardhat run scripts/deploy.ts --network lineaTestnet",
+    "deploy:mumbai": "hardhat run scripts/deploy.ts --network mumbai",
+    "build": "hardhat compile && deploy:lineatest"
   }
 }

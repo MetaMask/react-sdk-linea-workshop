@@ -1,28 +1,31 @@
-import { config, isSupportedNetwork } from '../lib/config'
+import { isSupportedNetwork } from "~/lib/isSupportedNetwork"
+import config from "../lib/config.json"
 
 export const useSwitchNetwork = () => {
-  const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
+  const networkId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
   const switchNetwork = async () => {
-    if(!isSupportedNetwork(networkId)) {
-      throw new Error('Unsupported network')
+    if (!isSupportedNetwork(networkId)) {
+      throw new Error("Unsupported network")
     }
 
     try {
       await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: networkId, }],
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: networkId }],
       })
     } catch (error) {
       try {
         await window.ethereum?.request({
-          method: 'wallet_addEthereumChain',
+          method: "wallet_addEthereumChain",
           params: [
             {
               chainId: networkId,
-              ...(config[networkId].blockExplorer ? {
-                blockExplorerUrls: [config[networkId].blockExplorer]
-              } : {}),
+              ...(config[networkId].blockExplorer
+                ? {
+                    blockExplorerUrls: [config[networkId].blockExplorer],
+                  }
+                : {}),
               chainName: config[networkId].name,
               nativeCurrency: {
                 decimals: 18,
@@ -39,10 +42,7 @@ export const useSwitchNetwork = () => {
       }
       // handle other "switch" errors
     }
-
   }
 
-  return {
-    switchNetwork
-  }
+  return { switchNetwork }
 }

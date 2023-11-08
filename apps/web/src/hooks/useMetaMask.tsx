@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, createContext, PropsWithChildren, useContext, useCallback } from 'react'
-import { EventType, MetaMaskSDK, SDKProvider } from '@metamask/sdk'
+import { EventType, MetaMaskSDK } from '@metamask/sdk'
 import { formatBalance } from '~/utils'
 import _ from 'underscore'
 
