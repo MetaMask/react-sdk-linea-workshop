@@ -21,6 +21,8 @@ Once running we should be able to Mint tickets, respond to changes from the wall
 
 Finally, once the user has minted ticket(s) the minting page will also display those SVG tickets on the page using a function in our contract called `walletOfOwner` which returns the tokenIds so that we can iterate through them, and for each one call another method `tokenURI` on the contract allowing us to render those SVG NFTs on the page. This ensures that as our users mint tickets, they get immediate visual feedback of the tickets they own with the connected wallet.
 
+Suggested NPM version is node v20+
+
 ### Step #01
 
 Clone the project and switch to the proper branch:
@@ -105,7 +107,6 @@ Once logged into Infura, you can get LineaETH from the [Infura Faucet](https://w
 Build the entire project checking for errors etc:
 
 ```bash
-npm run compile --workspace @workshop/blockchain
 npm run build
 ```
 
@@ -117,22 +118,24 @@ Deploy contract on Linea:
 npm run deploy:lineatest --workspace @workshop/blockchain
 ```
 
+**__Copy the contract address returned from the terminal output__**
+
 Deploy contract on Mumbai: 
 
 ```bash
 npm run deploy:mumbai --workspace @workshop/blockchain
 ```
 
+**__Copy the contract address returned from the terminal output__**
+
 ### Step #07
 
-In case you came to this repo from an older companion video, this workshop no longer requires you to copy the contract address from the deployed contract into the `apps/web/src/lib/config.ts` file. Below you will see that our specified chain `Linea` (or any other) looks to the `contractAbi.networks.address` inside of our ABI to find the contract address. So long as you have updated the `apps/web/.env` files `VITE_PUBLIC_CHAIN_ID` to target the specific chainId (using the hex value of the chain), and considering you have deployed a contract successfully to that chain, there is no other work on your part. It's automatic:
+Paste the contract address into the `/apps/web/src/lib/config.json` file:
 
-Ensure that the key in your `apps/web/src/lib/config.ts` file matches the network key: `networks[Number('0xe704')]`. This is all that needs to be done.
-
-```ts
+```js
   '0xe704': {
     name: 'Linea',
-    contractAddress: contractAbi.networks[Number('0xe704')]?.address,
+    contractAddress: 'CONTRACT_ADDRESS_OF_DEPLOYED_CONTRACT',
     symbol: 'LineaETH',
     blockExplorer: 'https://explorer.goerli.linea.build',
     rpcUrl: 'https://rpc.goerli.linea.build',
@@ -140,7 +143,7 @@ Ensure that the key in your `apps/web/src/lib/config.ts` file matches the networ
 ```
 ### Step #08
 
-Run frontend against deployed contract: 
+Run the web project against our deployed contract: 
 
 ```bash
 npm run dev:testnet
