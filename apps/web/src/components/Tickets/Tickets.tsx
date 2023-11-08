@@ -1,7 +1,5 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useMetaMask } from "~/hooks/useMetaMask";
-import { ETHTickets__factory } from "@workshop/blockchain";
 import { ethers } from "ethers";
 import config from "~/lib/config.json";
 
@@ -9,6 +7,9 @@ import { SiEthereum } from "react-icons/si";
 
 import styles from "./Tickets.module.css";
 import { isSupportedNetwork } from "~/lib/isSupportedNetwork";
+
+import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
+import { ETHTickets } from "@workshop/blockchain";
 
 interface Ticket {
   type: string;
@@ -26,20 +27,19 @@ const TicketTypes: React.FC<Ticket> = ({
   price,
   priceHexValue,
 }) => {
-  const { wallet, setError, updateMints, sdkConnected } = useMetaMask();
+  const { wallet, setError, updateMints } = useMetaMask();
   const [isMinting, setIsMinting] = useState(false);
 
   const mintTicket = async () => {
     setIsMinting(true);
 
+    // A provider allows you connection to and ability to query data from Ethereum.
+    // With them you can only call view methods on contracts and get data from those contracts.
     const provider = new ethers.BrowserProvider(window.ethereum);
-    // In ethers.js, providers allow you to query data from the blockchain.
-    // They represent the way you connect to the blockchain.
-    // With them you can only call view methods on contracts and get data from those contract.
+
     // Signers are authenticated providers connected to the current address in MetaMask.
     const signer = await provider.getSigner();
 
-    const factory:any = new ETHTickets__factory(signer);
     const chainId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
 
     if (!isSupportedNetwork(chainId)) {
@@ -48,15 +48,18 @@ const TicketTypes: React.FC<Ticket> = ({
       );
     }
 
-    const nftTickets = factory.attach(config[chainId].contractAddress);
-
     if (wallet.accounts.length > 0) {
+      const nftTickets = new ethers.Contract(
+        config[chainId].contractAddress,
+        abi,
+        signer
+      ) as unknown as ETHTickets;
+
       nftTickets
         .mintNFT({
           from: wallet.address!,
           value: priceHexValue,
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then(async (tx: any) => {
           console.log("minting accepted");
           await tx.wait(1);
@@ -64,7 +67,6 @@ const TicketTypes: React.FC<Ticket> = ({
           updateMints();
           setIsMinting(false);
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .catch((error: any) => {
           console.log(error);
           setError(error?.code);
