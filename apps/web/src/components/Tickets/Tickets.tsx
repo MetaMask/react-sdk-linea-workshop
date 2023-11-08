@@ -32,9 +32,7 @@ const TicketTypes: React.FC<Ticket> = ({
   const mintTicket = async () => {
     setIsMinting(true);
 
-    const provider = new ethers.providers.Web3Provider(
-      window.ethereum as unknown as ethers.providers.ExternalProvider
-    );
+    const provider = new ethers.BrowserProvider(window.ethereum);
     // In ethers.js, providers allow you to query data from the blockchain.
     // They represent the way you connect to the blockchain.
     // With them you can only call view methods on contracts and get data from those contract.
