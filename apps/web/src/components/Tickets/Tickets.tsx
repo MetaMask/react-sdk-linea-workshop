@@ -40,7 +40,7 @@ const TicketTypes: React.FC<Ticket> = ({
     // Signers are authenticated providers connected to the current address in MetaMask.
     const signer = await provider.getSigner();
 
-    const chainId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
+    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID;
 
     if (!isSupportedNetwork(chainId)) {
       throw new Error(

@@ -24,17 +24,15 @@ type TicketFormatted = {
   ticketType: { trait_type: string; value: string };
 };
 
-const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
+const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID;
 
 const TicketsOwned = () => {
-  const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>(
-    []
-  );
+  const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([]);
   const { wallet, sdkConnected, mints } = useMetaMask();
 
   const addNft = async (tokenId: string) => {
     console.log(`tokenId: `, tokenId);
-    console.log(`networkId: `, Number(networkId));
+    console.log(`networkId: `, Number(chainId));
 
     try {
       await window.ethereum?.request({
@@ -42,7 +40,7 @@ const TicketsOwned = () => {
         params: {
           type: "ERC721",
           options: {
-            address: config[Number(networkId)].contractAddress,
+            address: config[chainId].contractAddress,
             tokenId: tokenId,
           },
         },
@@ -71,7 +69,7 @@ const TicketsOwned = () => {
   const walletOfOwner = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
-    const chainId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
+    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID;
 
     if (!isSupportedNetwork(chainId)) {
       throw new Error(

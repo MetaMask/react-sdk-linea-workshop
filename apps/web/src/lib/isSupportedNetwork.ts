@@ -15,6 +15,6 @@ export const isSupportedNetwork = (
   const networkId = isHexChain ? id : `0x${Number(id).toString(16)}`; // if not hexstring transform to hexString
   // Make sure that networkId is in our supported network and is the current network set in .env
   return !!(
-    networkId in config && import.meta.env.VITE_PUBLIC_NETWORK_ID === networkId
+    networkId in config && import.meta.env.VITE_PUBLIC_CHAIN_ID === networkId
   );
 };

@@ -2,7 +2,7 @@ import { isSupportedNetwork } from "~/lib/isSupportedNetwork";
 import config from "../lib/config.json";
 
 export const useSwitchNetwork = () => {
-  const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID;
+  const networkId = import.meta.env.VITE_PUBLIC_CHAIN_ID;
 
   const switchNetwork = async () => {
     if (!isSupportedNetwork(networkId)) {

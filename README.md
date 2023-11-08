@@ -57,7 +57,7 @@ Create Environment Variable file inside the `apps/web` root:
 # Use hexadecimal network id 
 #   Linea: '0xe704'
 #   Mumbai: '0x13881'
-VITE_PUBLIC_NETWORK_ID=[LINEA-HEX-CHAIN-ID-GOES-HERE]
+VITE_PUBLIC_CHAIN_ID=[LINEA-HEX-CHAIN-ID-GOES-HERE]
 
 # Get API Key from Infura dashboard:
 VITE_PUBLIC_INFURA_PROJECT_ID=[INFURA-API-KEY-GOES-HERE]
@@ -120,7 +120,7 @@ npm run deploy:mumbai --workspace chain
 
 ### Step #07
 
-In case you came to this repo from an older companion video, this workshop no longer requires you to copy the contract address from the deployed contract into the `apps/web/src/lib/config.ts` file. Below you will see that our specified chain `Linea` (or any other) looks to the `contractAbi.networks.address` inside of our ABI to find the contract address. So long as you have updated the `apps/web/.env` files `VITE_PUBLIC_NETWORK_ID` to target the specific chainId (using the hex value of the chain), and considering you have deployed a contract successfully to that chain, there is no other work on your part. It's automatic:
+In case you came to this repo from an older companion video, this workshop no longer requires you to copy the contract address from the deployed contract into the `apps/web/src/lib/config.ts` file. Below you will see that our specified chain `Linea` (or any other) looks to the `contractAbi.networks.address` inside of our ABI to find the contract address. So long as you have updated the `apps/web/.env` files `VITE_PUBLIC_CHAIN_ID` to target the specific chainId (using the hex value of the chain), and considering you have deployed a contract successfully to that chain, there is no other work on your part. It's automatic:
 
 Ensure that the key in your `apps/web/src/lib/config.ts` file matches the network key: `networks[Number('0xe704')]`. This is all that needs to be done.
 
