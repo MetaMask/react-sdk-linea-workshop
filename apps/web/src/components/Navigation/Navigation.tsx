@@ -9,12 +9,12 @@ import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 export const Navigation = () => {
   const { wallet, isConnecting, connectMetaMask, sdk, sdkConnected } =
     useMetaMask()
-  const networkId = import.meta.env.VITE_PUBLIC_CHAIN_ID
+  const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
   const walletChainSupported = isSupportedNetwork(wallet.chainId)
 
   // now chainInfo is strongly typed or fallback to linea if not a valid chain
-  const chainInfo = isSupportedNetwork(networkId)
-    ? config[networkId]
+  const chainInfo = isSupportedNetwork(chainId)
+    ? config[chainId]
     : config['0xe704']
 
   return (
