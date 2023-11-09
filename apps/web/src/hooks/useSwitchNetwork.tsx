@@ -1,23 +1,23 @@
-import { isSupportedNetwork } from "~/lib/isSupportedNetwork"
-import config from "../lib/config.json"
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
+import config from '../lib/config.json'
 
 export const useSwitchNetwork = () => {
   const networkId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
   const switchNetwork = async () => {
     if (!isSupportedNetwork(networkId)) {
-      throw new Error("Unsupported network")
+      throw new Error('Unsupported network')
     }
 
     try {
       await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
+        method: 'wallet_switchEthereumChain',
         params: [{ chainId: networkId }],
       })
     } catch (error) {
       try {
         await window.ethereum?.request({
-          method: "wallet_addEthereumChain",
+          method: 'wallet_addEthereumChain',
           params: [
             {
               chainId: networkId,

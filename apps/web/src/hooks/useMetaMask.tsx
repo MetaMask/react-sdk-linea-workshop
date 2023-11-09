@@ -5,24 +5,24 @@ import { formatBalance } from '~/utils'
 import _ from 'underscore'
 
 interface WalletState {
-  accounts: any[],
-  balance: string,
-  chainId: string,
+  accounts: any[]
+  balance: string
+  chainId: string
   address: string
 }
 
 interface MetaMaskContextData {
-  wallet: WalletState,
-  error: boolean,
-  errorMessage: string,
-  mints: number,
-  isConnecting: boolean,
-  sdkConnected: boolean,
-  sdk?: MetaMaskSDK,
-  connectMetaMask: () => void,
-  clearError: () => void,
-  setError: (error: string) => void,
-  updateMints: () => void,
+  wallet: WalletState
+  error: boolean
+  errorMessage: string
+  mints: number
+  isConnecting: boolean
+  sdkConnected: boolean
+  sdk?: MetaMaskSDK
+  connectMetaMask: () => void
+  clearError: () => void
+  setError: (error: string) => void
+  updateMints: () => void
   terminate: () => void
 }
 
@@ -117,7 +117,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
       useDeeplink: false,
       communicationServerUrl: 'https://metamask-sdk-socket.metafi.codefi.network/',
       dappMetadata: {
-        name: "NFT Tickets",
+        name: 'NFT Tickets',
         url: window.location.host,
       },
       logging: {
