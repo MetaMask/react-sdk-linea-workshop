@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import { ethers } from 'ethers'
+// import { ethers } from 'ethers'
 
-import { ETHTickets__factory } from 'blockchain'
-import { config, isSupportedNetwork } from '../../lib/config'
 import styles from './TicketsOwned.module.css'
 
-import * as contractAbi from '~/lib/contract-abis/ETHTickets.json'
+// import { isSupportedNetwork } from "~/lib/isSupportedNetwork"
+
+import config from "../../lib/config.json"
+// import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
+// import { ETHTickets } from "@workshop/blockchain"
 import { useAppState } from '~/hooks/useAppContext'
 
 type NftData = {
@@ -22,11 +24,11 @@ type TicketFormatted = {
   ticketType: { trait_type: string, value: string }
 }
 
+const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
+
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
   const { mints } = useAppState()
-
-  console.log(window.ethereum)
 
   const addNft = async (tokenId: string) => {
     try {
@@ -35,7 +37,7 @@ const TicketsOwned = () => {
         params: {
           type: "ERC721",
           options: {
-            address: contractAbi.networks[Number('0xe704')].address,
+            address: config[chainId].contractAddress,
             tokenId: tokenId
           }
         }
@@ -59,31 +61,35 @@ const TicketsOwned = () => {
     </div>
   ))
 
-  // useEffect(() => {
-  //   console.log('ticketsOwned: UseEffect')
-  //   if (typeof window !== 'undefined' && account !== null && window.ethereum) {
+  // const walletOfOwner = async () => {
+  //   const provider = new ethers.BrowserProvider(window.ethereum)
+  //   const signer = await provider.getSigner()
+  //   const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
-  //     const provider = new ethers.providers.Web3Provider(
-  //       window.ethereum as unknown as ethers.providers.ExternalProvider,
+  //   if (!isSupportedNetwork(chainId)) {
+  //     throw new Error(
+  //       "Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local"
   //     )
-  //     const signer = provider.getSigner()
-  //     const factory = new ETHTickets__factory(signer)
+  //   }
 
-  //     if (!isSupportedNetwork(chainId)) {
-  //       return
-  //     }
+  //   if (wallet.accounts.length > 0) {
+  //     const nftTickets = new ethers.Contract(
+  //       config[chainId].contractAddress,
+  //       abi,
+  //       signer
+  //     ) as unknown as ETHTickets
 
-  //     const nftTickets = factory.attach(config[chainId].contractAddress)
   //     const ticketsRetrieved: TicketFormatted[] = []
 
-  //     nftTickets.walletOfOwner(account)
+  //     nftTickets
+  //       .walletOfOwner(wallet.address!)
   //       .then((ownedTickets) => {
   //         const promises = ownedTickets.map(async (token) => {
   //           const currentTokenId = token.toString()
   //           const currentTicket = await nftTickets.tokenURI(currentTokenId)
 
   //           const base64ToString = window.atob(
-  //             currentTicket.replace('data:application/json;base64,', ''),
+  //             currentTicket.replace("data:application/json;base64,", "")
   //           )
   //           const nftData: NftData = JSON.parse(base64ToString)
 
@@ -91,14 +97,26 @@ const TicketsOwned = () => {
   //             tokenId: currentTokenId,
   //             svgImage: nftData.image,
   //             ticketType: nftData.attributes.find(
-  //               (ticket) => ticket.trait_type === 'Ticket Type',
+  //               (ticket) => ticket.trait_type === "Ticket Type"
   //             ),
   //           } as TicketFormatted)
   //         })
   //         Promise.all(promises).then(() => setTicketCollection(ticketsRetrieved))
   //       })
+  //       .catch((error) => {
+  //         console.log(`error`, error)
+  //       })
   //   }
-  // }, [account, mints, chainId])
+  // }
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined" && wallet.address !== null && window.ethereum) {
+  //     if (!isSupportedNetwork(wallet.chainId)) {
+  //       return
+  //     }
+  //     walletOfOwner()
+  //   }
+  // }, [wallet.address, mints, wallet.chainId, sdkConnected])
 
   return (
     <div className={styles.ticketsOwnedView}>

@@ -5,9 +5,8 @@ import styles from './Navigation.module.css'
 import { useConnectWallet } from '@web3-onboard/react'
 
 export const Navigation = () => {
-
-  const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
   const [{ wallet }, connect, disconnect, updateBalances, setWalletModules] = useConnectWallet()
+  const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
   return (
     <div className={styles.navigation}>

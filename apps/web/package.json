@@ -11,12 +11,13 @@
     "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
-    "@types/react": "^18.2.24",
+    "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
-    "@web3-onboard/metamask": "^2.0.1-alpha.2",
+    "@web3-onboard/metamask": "^2.0.1-alpha.4",
     "@web3-onboard/react": "^2.8.13",
+    "@workshop/blockchain": "0.1.0",
     "dotenv": "^16.3.1",
-    "ethers": "^5.7.2",
+    "ethers": "^6.8.1",
     "json-rpc-engine": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
