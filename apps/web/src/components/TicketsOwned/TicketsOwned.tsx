@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
+import styles from './TicketsOwned.module.css'
 import { ethers } from 'ethers'
 
 import config from '../../lib/config.json'
-import { useMetaMask } from '../../hooks/useMetaMask'
-import styles from './TicketsOwned.module.css'
-
 import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
-
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
+
+import { useMetaMask } from '../../hooks/useMetaMask'
 
 type NftData = {
   name: string
@@ -76,9 +75,7 @@ const TicketsOwned = () => {
 
     if (wallet.accounts.length > 0) {
       const nftTickets = new ethers.Contract(
-        config[chainId].contractAddress,
-        abi,
-        signer
+        config[chainId].contractAddress, abi, signer
       ) as unknown as ETHTickets
 
       const ticketsRetrieved: TicketFormatted[] = []
@@ -110,7 +107,6 @@ const TicketsOwned = () => {
         })
     }
   }
-
 
   useEffect(() => {
     if (typeof window !== 'undefined' && wallet.address !== null && window.ethereum) {
