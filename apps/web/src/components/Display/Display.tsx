@@ -25,8 +25,6 @@ export const Display = () => {
     },
   ]
 
-  console.log(tickets)
-
   return (
     <div className={styles.display}>
       <Tickets tickets={tickets} />
