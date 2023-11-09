@@ -32,7 +32,7 @@ const TicketTypes: React.FC<Ticket> = ({
   const { account, sdk, connected, connecting, provider, chainId } = useSDK()
 
   const mintTicket = async() => {
-    console.log("starting to mint")
+    console.log('starting to mint')
     setIsMinting(true)
 
     // A provider allows you connection to and ability to query data from Ethereum.

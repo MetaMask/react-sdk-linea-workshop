@@ -36,7 +36,7 @@ const TicketsOwned = () => {
       await window.ethereum?.request({
         method: 'wallet_watchAsset',
         params: {
-          type: "ERC721",
+          type: 'ERC721',
           options: {
             address: config[chainId].contractAddress,
             tokenId: tokenId

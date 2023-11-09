@@ -1,4 +1,4 @@
-import config from "./config.json"
+import config from './config.json'
 
 /**
  * It returns true if the id is a key of the config object
@@ -11,7 +11,7 @@ export const isSupportedNetwork = (
   if (!id) {
     return false
   }
-  const isHexChain = id.startsWith("0x")
+  const isHexChain = id.startsWith('0x')
   const networkId = isHexChain ? id : `0x${Number(id).toString(16)}` // if not hexstring transform to hexString
   // Make sure that networkId is in our supported network and is the current network set in .env
   return !!(
