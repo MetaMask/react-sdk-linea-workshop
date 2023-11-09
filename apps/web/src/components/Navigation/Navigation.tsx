@@ -1,10 +1,12 @@
+import styles from './Navigation.module.css'
 import { SiEthereum } from 'react-icons/si'
-import { useMetaMask } from '~/hooks/useMetaMask'
+
 import { formatAddress, formatChainAsNum } from '~/utils'
 import config from '~/lib/config.json'
-import SwitchNetwork from '~/components/SwitchNetwork/SwitchNetwork'
-import styles from './Navigation.module.css'
 import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
+
+import SwitchNetwork from '~/components/SwitchNetwork/SwitchNetwork'
+import { useMetaMask } from '~/hooks/useMetaMask'
 
 export const Navigation = () => {
   const { wallet, isConnecting, connectMetaMask, sdk, sdkConnected } =
