@@ -3,7 +3,7 @@ import { useState } from 'react'
 // import { ethers } from 'ethers'
 
 // import config from '../../lib/config.json'
-import styles from './TicketsOwned.module.css'
+import styles from './Tickets.module.css'
 // import { SiEthereum } from 'react-icons/si'
 
 // import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
