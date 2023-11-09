@@ -1,15 +1,14 @@
 import { useState } from 'react'
-import { useMetaMask } from '~/hooks/useMetaMask'
-import { ethers } from 'ethers'
-import config from '~/lib/config.json'
-
-import { SiEthereum } from 'react-icons/si'
-
 import styles from './Tickets.module.css'
-import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
+import { SiEthereum } from 'react-icons/si'
+import { ethers } from 'ethers'
 
+import config from '~/lib/config.json'
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
+
+import { useMetaMask } from '~/hooks/useMetaMask'
 
 interface Ticket {
   type: string
