@@ -1,9 +1,8 @@
+import styles from './Navigation.module.css'
 import { SiEthereum } from 'react-icons/si'
 import { MetaMaskButton } from '@metamask/sdk-react-ui'
-import styles from './Navigation.module.css'
 
 export const Navigation = () => {
-
   const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
 
   return (
