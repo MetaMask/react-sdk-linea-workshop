@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
-import { ETHTickets__factory } from 'blockchain'
-import { ethers } from 'ethers'
-import { config, isSupportedNetwork } from '~/lib/config'
-
-import { SiEthereum } from 'react-icons/si'
-
 import styles from './Tickets.module.css'
+import { SiEthereum } from 'react-icons/si'
+import { ethers } from 'ethers'
+
+import config from '~/lib/config.json'
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
+import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
+import { ETHTickets } from '@workshop/blockchain'
+
 import { useAppState } from '~/hooks/useAppContext'
 import { useSDK } from '@metamask/sdk-react-ui'
 
@@ -33,44 +35,41 @@ const TicketTypes: React.FC<Ticket> = ({
     console.log("starting to mint")
     setIsMinting(true)
 
-    const provider = new ethers.providers.Web3Provider(
-      window.ethereum as unknown as ethers.providers.ExternalProvider,
-    )
-    // In ethers.js, providers allow you to query data from the blockchain. 
-    // They represent the way you connect to the blockchain. 
-    // With them you can only call view methods on contracts and get data from those contract.
-    // Signers are authenticated providers connected to the current address in MetaMask.
-    const signer = provider.getSigner()
+    // A provider allows you connection to and ability to query data from Ethereum.
+    // With them you can only call view methods on contracts and get data from those contracts.
+    const provider = new ethers.BrowserProvider(window.ethereum)
 
-    const factory = new ETHTickets__factory(signer)
-    const networkId = import.meta.env.VITE_PUBLIC_NETWORK_ID
+    // Signers are authenticated providers connected to the current address in MetaMask.
+    const signer = await provider.getSigner()
+
+    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
     
-    if(!isSupportedNetwork(networkId)) {
+    if(!isSupportedNetwork(chainId)) {
       throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
-    
-    const nftTickets = factory.attach(config[networkId].contractAddress)
 
     if (window.ethereum) {
+      const nftTickets = new ethers.Contract(
+        config[chainId].contractAddress, abi, signer
+      ) as unknown as ETHTickets
+
       nftTickets
-      .mintNFT({
-        from: account,
-        value: priceHexValue,
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then(async (tx: any) => {
-        console.log('minting accepted')
-        await tx.wait(1)
-        console.log(`Minting complete, mined: ${tx}`)
-        updateMints()
-        setIsMinting(false)
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .catch((error: any) => {
-        console.log(error)
-        setError(error?.code)
-        setIsMinting(false)
-      })
+        .mintNFT({
+          from: account,
+          value: priceHexValue,
+        })
+        .then(async (tx: any) => {
+          console.log('minting accepted')
+          await tx.wait(1)
+          console.log(`Minting complete, mined: ${tx}`)
+          updateMints()
+          setIsMinting(false)
+        })
+        .catch((error: any) => {
+          console.log(error)
+          setError(error?.code)
+          setIsMinting(false)
+        })
     }
   }
 
