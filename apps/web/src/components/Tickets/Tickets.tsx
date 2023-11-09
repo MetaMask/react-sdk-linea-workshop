@@ -1,15 +1,15 @@
-import { useState } from "react"
-import { useMetaMask } from "~/hooks/useMetaMask"
-import { ethers } from "ethers"
-import config from "~/lib/config.json"
+import { useState } from 'react'
+import { useMetaMask } from '~/hooks/useMetaMask'
+import { ethers } from 'ethers'
+import config from '~/lib/config.json'
 
-import { SiEthereum } from "react-icons/si"
+import { SiEthereum } from 'react-icons/si'
 
-import styles from "./Tickets.module.css"
-import { isSupportedNetwork } from "~/lib/isSupportedNetwork"
+import styles from './Tickets.module.css'
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
-import { ETHTickets } from "@workshop/blockchain"
+import { ETHTickets } from '@workshop/blockchain'
 
 interface Ticket {
   type: string
@@ -43,7 +43,7 @@ const TicketTypes: React.FC<Ticket> = ({
     const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
     if (!isSupportedNetwork(chainId)) {
-      throw new Error("Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local")
+      throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
 
     if (wallet.accounts.length > 0) {
@@ -57,7 +57,7 @@ const TicketTypes: React.FC<Ticket> = ({
           value: priceHexValue,
         })
         .then(async (tx: any) => {
-          console.log("minting accepted")
+          console.log('minting accepted')
           await tx.wait(1)
           console.log(`Minting complete, mined: ${tx}`)
           updateMints()

@@ -8,7 +8,7 @@
   },
   "0xe704": {
     "name": "Linea",
-    "contractAddress": "0xe7C878aB9C28A4fa8420fF19766513c95425F06f",
+    "contractAddress": "",
     "symbol": "LineaETH",
     "blockExplorer": "https://explorer.goerli.linea.build",
     "rpcUrl": "https://rpc.goerli.linea.build"

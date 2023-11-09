@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react"
-import { ethers } from "ethers"
+import { useState, useEffect } from 'react'
+import { ethers } from 'ethers'
 
-import config from "../../lib/config.json"
-import { useMetaMask } from "../../hooks/useMetaMask"
-import styles from "./TicketsOwned.module.css"
+import config from '../../lib/config.json'
+import { useMetaMask } from '../../hooks/useMetaMask'
+import styles from './TicketsOwned.module.css'
 
-import { isSupportedNetwork } from "~/lib/isSupportedNetwork"
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
-import { ETHTickets } from "@workshop/blockchain"
+import { ETHTickets } from '@workshop/blockchain'
 
 type NftData = {
   name: string
@@ -33,9 +33,9 @@ const TicketsOwned = () => {
   const addNft = async (tokenId: string) => {
     try {
       await window.ethereum?.request({
-        method: "wallet_watchAsset",
+        method: 'wallet_watchAsset',
         params: {
-          type: "ERC721",
+          type: 'ERC721',
           options: {
             address: config[chainId].contractAddress,
             tokenId: tokenId,
@@ -70,7 +70,7 @@ const TicketsOwned = () => {
 
     if (!isSupportedNetwork(chainId)) {
       throw new Error(
-        "Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local"
+        'Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local'
       )
     }
 
@@ -91,7 +91,7 @@ const TicketsOwned = () => {
             const currentTicket = await nftTickets.tokenURI(currentTokenId)
 
             const base64ToString = window.atob(
-              currentTicket.replace("data:application/json;base64,", "")
+              currentTicket.replace('data:application/json;base64,', '')
             )
             const nftData: NftData = JSON.parse(base64ToString)
 
@@ -99,7 +99,7 @@ const TicketsOwned = () => {
               tokenId: currentTokenId,
               svgImage: nftData.image,
               ticketType: nftData.attributes.find(
-                (ticket) => ticket.trait_type === "Ticket Type"
+                (ticket) => ticket.trait_type === 'Ticket Type'
               ),
             } as TicketFormatted)
           })
@@ -113,7 +113,7 @@ const TicketsOwned = () => {
 
 
   useEffect(() => {
-    if (typeof window !== "undefined" && wallet.address !== null && window.ethereum) {
+    if (typeof window !== 'undefined' && wallet.address !== null && window.ethereum) {
       if (!isSupportedNetwork(wallet.chainId)) {
         return
       }
