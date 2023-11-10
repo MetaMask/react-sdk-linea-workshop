@@ -13,12 +13,14 @@ import { lineaTestnet } from '@wagmi/core/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 
+const INFURA_KEY = import.meta.env.VITE_PUBLIC_INFURA_PROJECT_ID
+
 const { chains, publicClient } = configureChains(
   [lineaTestnet],
   [
     jsonRpcProvider({
       rpc: () => ({
-        http: 'https://linea-goerli.infura.io/v3/305727869d444a8f8e17345b4d8b32e7'
+        http: `https://linea-goerli.infura.io/v3/${INFURA_KEY}`
       }),
     })]
   ,
