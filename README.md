@@ -130,17 +130,18 @@ npm run deploy:mumbai --workspace @workshop/blockchain
 
 ### Step #07
 
-Paste the contract address into the `/apps/web/src/lib/config.json` file:
+When you deploy your contract, our project scripts will ensure the `/apps/web/src/lib/config.json` is updated automatically with the proper contract address file, so you will see this file update, it's a good practice to check it JIC:
 
 ```js
   '0xe704': {
     name: 'Linea',
-    contractAddress: 'CONTRACT_ADDRESS_OF_DEPLOYED_CONTRACT',
+    contractAddress: 'UPDATED_CONTRACT_ADDRESS',
     symbol: 'LineaETH',
     blockExplorer: 'https://explorer.goerli.linea.build',
     rpcUrl: 'https://rpc.goerli.linea.build',
   },
 ```
+
 ### Step #08
 
 Run the web project against our deployed contract: 
