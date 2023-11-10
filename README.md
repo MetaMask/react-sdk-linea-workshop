@@ -137,6 +137,7 @@ When you deploy your contract, our project scripts will ensure the `/apps/web/sr
     rpcUrl: 'https://rpc.goerli.linea.build',
   },
 ```
+
 ### Step #08
 
 Run the web project against our deployed contract: 
