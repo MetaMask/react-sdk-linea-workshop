@@ -4,7 +4,13 @@ import Tickets from '~/components/Tickets/Tickets'
 import TicketsOwned from '~/components/TicketsOwned/TicketsOwned'
 import styles from './Display.module.css'
 
+import { useConnectWallet, useSetChain } from '@web3-onboard/react'
+import WalletInfo from '../WalletInfo/WalletInfo'
+
 export const Display = () => {
+  const [{ wallet }] = useConnectWallet()
+  const [{ chains, connectedChain, settingChain }, setChain] = useSetChain()
+
   const ethGa = '0.01'
   const ethVip = '0.02'
   const ethGaHex = '0x2386f26fc10000' // '0x2386f26fc10000' *eserialize.com
@@ -31,6 +37,12 @@ export const Display = () => {
     <div className={styles.display}>
       <Tickets tickets={tickets} />
       <TicketsOwned /> 
+      <WalletInfo
+        connectedChain={wallet ? connectedChain : null}
+        address={wallet?.accounts[0]?.address}
+        balance={wallet?.accounts[0]?.balance}
+        ens={wallet?.accounts[0]?.ens}
+      />
     </div>
   )
 }

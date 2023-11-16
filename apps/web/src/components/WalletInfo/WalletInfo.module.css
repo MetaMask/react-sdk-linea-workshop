@@ -1,0 +1,32 @@
+.walletInfoView {
+  padding: 0;
+  border-top: 1px solid #333;
+  color: #999;
+}
+.userAvatar {
+  width: 32px;
+  border-radius: 100%;
+  border: 1px solid black;
+  left: 0;
+  transform: translate(-50%, 0);
+  position: absolute;
+}
+
+.userAddress {
+  max-width: 92%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  color: greenyellow
+}
+
+.userNetwork {
+  padding: 0 0 0 1em;
+  max-width: 92%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  color: powderblue
+}
