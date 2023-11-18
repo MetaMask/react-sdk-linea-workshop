@@ -29,8 +29,6 @@ const TicketsOwned = () => {
   const { mints } = useAppState()
   const { account, provider, chainId } = useSDK()
 
-  console.log(window.ethereum)
-
   const addNft = async (tokenId: string) => {
     try {
       await window.ethereum?.request({
