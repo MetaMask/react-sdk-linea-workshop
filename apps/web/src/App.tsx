@@ -20,10 +20,11 @@ const ethereumLinea = {
 const mmSdkOptions = {
   logging: { developerMode: false },
   checkInstallationImmediately: false, // This will automatically connect to MetaMask on page load
+  checkInstallationOnAllCalls: true,
   dappMetadata: {
     name: 'Demo React App',
     url: window.location.host,
-  },
+  }
 }
 const metamaskSDKWallet = metamaskSDK({options: mmSdkOptions})
 
