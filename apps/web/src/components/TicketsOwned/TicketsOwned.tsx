@@ -27,7 +27,7 @@ const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
-  const { dappConfig } = useDappConfig()
+  const { dapp } = useDappConfig()
   const { wallet, sdkConnected, mints } = useMetaMask()
 
   const addNft = async (tokenId: string) => {
@@ -37,7 +37,7 @@ const TicketsOwned = () => {
         params: {
           type: 'ERC721',
           options: {
-            address: dappConfig.chainInfo?.contractAddress,
+            address: dapp.chainInfo?.contractAddress,
             tokenId: tokenId,
           },
         },
@@ -76,7 +76,7 @@ const TicketsOwned = () => {
 
     if (wallet.accounts.length > 0) {
       const nftTickets = new ethers.Contract(
-        dappConfig.chainInfo?.contractAddress, abi, signer
+        dapp.chainInfo?.contractAddress, abi, signer
       ) as unknown as ETHTickets
 
       const ticketsRetrieved: TicketFormatted[] = []

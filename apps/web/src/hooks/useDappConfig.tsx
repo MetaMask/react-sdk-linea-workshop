@@ -9,7 +9,7 @@ export const useDappConfig = () => {
     ? config[chainId]
     : config['0xe704']
 
-  const dappConfig = { chainId, chainInfo }
+  const dapp = { chainId, chainInfo }
   
-  return { dappConfig }
+  return { dapp }
 }

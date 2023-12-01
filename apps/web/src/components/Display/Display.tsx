@@ -4,7 +4,7 @@ import styles from './Display.module.css'
 import { useDappConfig } from '~/hooks/useDappConfig'
 
 export const Display = () => {
-  const { dappConfig } = useDappConfig()
+  const { dapp } = useDappConfig()
 
   const ethGa = '0.01'
   const ethVip = '0.02'
@@ -30,7 +30,7 @@ export const Display = () => {
 
   return (
     <div className={styles.display}>
-    { dappConfig.chainInfo?.contractAddress !== ""
+    { dapp.chainInfo?.contractAddress !== ""
       ? <>
           <Tickets tickets={tickets} /> 
           <TicketsOwned />
@@ -38,7 +38,7 @@ export const Display = () => {
       : <div className={styles.error}>
           No ETH Atlantis Contract Deployed or
           <br/>contract address not in config for chain:  
-          <code className={styles.chain}> {dappConfig.chainId}</code>.
+          <code className={styles.chain}> {dapp.chainId}</code>.
         </div>
     }
     </div>

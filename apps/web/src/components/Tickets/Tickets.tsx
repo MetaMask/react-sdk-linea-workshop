@@ -26,7 +26,7 @@ const TicketTypes: React.FC<Ticket> = ({
   price,
   priceHexValue,
 }) => {
-  const { dappConfig } = useDappConfig()
+  const { dapp } = useDappConfig()
   const { wallet, setError, updateMints } = useMetaMask()
   const [isMinting, setIsMinting] = useState(false)
 
@@ -40,13 +40,13 @@ const TicketTypes: React.FC<Ticket> = ({
     // Signers are authenticated providers connected to the current address in MetaMask.
     const signer = await provider.getSigner()
 
-    if (!isSupportedNetwork(dappConfig.chainId)) {
+    if (!isSupportedNetwork(dapp.chainId)) {
       throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
 
     if (wallet.accounts.length > 0) {
       const nftTickets = new ethers.Contract(
-        dappConfig.chainInfo?.contractAddress, abi, signer
+        dapp.chainInfo?.contractAddress, abi, signer
       ) as unknown as ETHTickets
 
       nftTickets

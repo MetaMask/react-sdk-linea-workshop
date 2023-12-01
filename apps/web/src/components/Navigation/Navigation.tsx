@@ -12,7 +12,7 @@ export const Navigation = () => {
   const { wallet, isConnecting, connectMetaMask, sdk, sdkConnected } =
     useMetaMask()
   const walletChainSupported = isSupportedNetwork(wallet.chainId)
-  const { dappConfig } = useDappConfig()
+  const { dapp } = useDappConfig()
 
   return (
     <div className={styles.navigation}>
@@ -37,13 +37,13 @@ export const Navigation = () => {
                 {/* <button onClick={async () => sdk.terminate()}>
                   Terminate
                 </button> */}
-                {walletChainSupported && dappConfig.chainInfo?.contractAddress !== "" ? 
-                  <a href={`${dappConfig.chainInfo?.blockExplorer}/address/${dappConfig.chainInfo?.contractAddress}`}
+                {walletChainSupported && dapp.chainInfo?.contractAddress !== "" ? 
+                  <a href={`${dapp.chainInfo?.blockExplorer}/address/${dapp.chainInfo?.contractAddress}`}
                     target="_blank" title="Open in Block Explorer"
                   >
-                    {dappConfig.chainInfo.name}:{formatChainAsNum(wallet.chainId)}
+                    {dapp.chainInfo.name}:{formatChainAsNum(wallet.chainId)}
                   </a>
-                : <>{dappConfig.chainInfo.name}:{formatChainAsNum(wallet.chainId)}</>
+                : <>{dapp.chainInfo.name}:{formatChainAsNum(wallet.chainId)}</>
                 }
                 &nbsp;|&nbsp;
                 <a
