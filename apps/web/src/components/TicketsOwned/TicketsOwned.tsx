@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import styles from './TicketsOwned.module.css'
 import { ethers } from 'ethers'
 
-import config from '../../lib/config.json'
+import { useDappConfig } from '~/hooks/useDappConfig'
 import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
@@ -27,6 +27,7 @@ const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
+  const { dappConfig } = useDappConfig()
   const { wallet, sdkConnected, mints } = useMetaMask()
 
   const addNft = async (tokenId: string) => {
@@ -36,7 +37,7 @@ const TicketsOwned = () => {
         params: {
           type: 'ERC721',
           options: {
-            address: config[chainId].contractAddress,
+            address: dappConfig.chainInfo?.contractAddress,
             tokenId: tokenId,
           },
         },
@@ -75,7 +76,7 @@ const TicketsOwned = () => {
 
     if (wallet.accounts.length > 0) {
       const nftTickets = new ethers.Contract(
-        config[chainId].contractAddress, abi, signer
+        dappConfig.chainInfo?.contractAddress, abi, signer
       ) as unknown as ETHTickets
 
       const ticketsRetrieved: TicketFormatted[] = []

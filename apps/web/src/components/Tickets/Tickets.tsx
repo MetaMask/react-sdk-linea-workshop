@@ -3,7 +3,7 @@ import styles from './Tickets.module.css'
 import { SiEthereum } from 'react-icons/si'
 import { ethers } from 'ethers'
 
-import config from '~/lib/config.json'
+import { useDappConfig } from '~/hooks/useDappConfig'
 import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
@@ -26,6 +26,7 @@ const TicketTypes: React.FC<Ticket> = ({
   price,
   priceHexValue,
 }) => {
+  const { dappConfig } = useDappConfig()
   const { wallet, setError, updateMints } = useMetaMask()
   const [isMinting, setIsMinting] = useState(false)
 
@@ -39,15 +40,13 @@ const TicketTypes: React.FC<Ticket> = ({
     // Signers are authenticated providers connected to the current address in MetaMask.
     const signer = await provider.getSigner()
 
-    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
-
-    if (!isSupportedNetwork(chainId)) {
+    if (!isSupportedNetwork(dappConfig.chainId)) {
       throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
 
     if (wallet.accounts.length > 0) {
       const nftTickets = new ethers.Contract(
-        config[chainId].contractAddress, abi, signer
+        dappConfig.chainInfo?.contractAddress, abi, signer
       ) as unknown as ETHTickets
 
       nftTickets

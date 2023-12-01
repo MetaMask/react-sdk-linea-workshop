@@ -4,3 +4,9 @@
   height: calc(100% - 136px);
   padding: 0;
 }
+.error {
+  padding: 1em;
+}
+.chain {
+  color: aqua;
+}
