@@ -1,18 +1,18 @@
 import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
-import config from '../lib/config.json'
+import { useDappConfig } from '~/hooks/useDappConfig'
 
 export const useSwitchNetwork = () => {
-  const networkId = import.meta.env.VITE_PUBLIC_CHAIN_ID
+  const { dappConfig } = useDappConfig()
 
   const switchNetwork = async () => {
-    if (!isSupportedNetwork(networkId)) {
+    if (!isSupportedNetwork(dappConfig.chainId)) {
       throw new Error('Unsupported network')
     }
 
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: networkId }],
+        params: [{ chainId: dappConfig.chainId }],
       })
     } catch (error) {
       try {
@@ -20,19 +20,19 @@ export const useSwitchNetwork = () => {
           method: 'wallet_addEthereumChain',
           params: [
             {
-              chainId: networkId,
-              ...(config[networkId].blockExplorer
+              chainId: dappConfig.chainId,
+              ...(dappConfig.chainInfo?.blockExplorer
                 ? {
-                    blockExplorerUrls: [config[networkId].blockExplorer],
+                    blockExplorerUrls: [dappConfig.chainInfo?.blockExplorer],
                   }
                 : {}),
-              chainName: config[networkId].name,
+              chainName: dappConfig.chainInfo?.name,
               nativeCurrency: {
                 decimals: 18,
-                name: config[networkId].name,
-                symbol: config[networkId].symbol,
+                name: dappConfig.chainInfo?.name,
+                symbol: dappConfig.chainInfo?.symbol,
               },
-              rpcUrls: [config[networkId].rpcUrl],
+              rpcUrls: [dappConfig.chainInfo?.rpcUrl],
             },
           ],
         })
