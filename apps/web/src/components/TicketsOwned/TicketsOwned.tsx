@@ -23,8 +23,6 @@ type TicketFormatted = {
   ticketType: { trait_type: string; value: string }
 }
 
-const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
-
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
   const { dapp } = useDappConfig()
