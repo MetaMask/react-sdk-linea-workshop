@@ -124,21 +124,18 @@ Deploy contract on Mumbai:
 npm run deploy:mumbai --workspace @workshop/blockchain
 ```
 
-### Step #07
-
-When you deploy your contract, our project scripts will ensure the `/apps/web/src/lib/config.json` is updated automatically with the proper contract address file, so you will see this file update, it's a good practice to check it JIC:
+__**Running these deploy scripts utilizes the deploy.js file which will copy the contract address to `/apps/web/src/lib/config.json` automatically**__
 
 ```js
   '0xe704': {
     name: 'Linea',
-    contractAddress: 'UPDATED_CONTRACT_ADDRESS',
+    contractAddress: 'CONTRACT_ADDRESS_OF_DEPLOYED_CONTRACT',
     symbol: 'LineaETH',
     blockExplorer: 'https://explorer.goerli.linea.build',
     rpcUrl: 'https://rpc.goerli.linea.build',
   },
 ```
-
-### Step #08
+### Step #07
 
 Run the web project against our deployed contract: 
 
@@ -146,7 +143,7 @@ Run the web project against our deployed contract:
 npm run dev:testnet
 ```
 
-### Step #09
+### Step #08
 
 Test the Frontend with MetaMask Browser Extension
 
@@ -160,7 +157,7 @@ Test the Frontend with MetaMask Browser Extension
 - Disconnect from both accounts and see it reflected in the UI
 - Disable MetaMask Browser Extension
 
-### Step #10
+### Step #09
 
 Test the Frontend with MetaMask Mobile
 
@@ -169,6 +166,10 @@ Test the Frontend with MetaMask Mobile
 - Mint a Ticket NFT
 - See the Ticket NFT show up at bottom of page
 - Disconnect from Metamask Mobile and ensure we are prompted in UI
+
+### Step 10
+
+If you made it through this tutorial, consider saving the repo for future reference, as long as it is not archived it will continuously be updated and maintained to work with the MetaMask SDK, Linea, and Hardhat. Share it with anyone you like and feel free to fork, clone, modify, contribute or outright steal anything in this workshop. It's fair use and open source.
 
 This is just a demo application, but it covers a lot of the basics you would need in a ral world Dapp that uses MetaMask and gives your users the ability to connect to both Browser Extension and Mobile from their Dapp which up until MetaMask SDK was no easy task.
 
