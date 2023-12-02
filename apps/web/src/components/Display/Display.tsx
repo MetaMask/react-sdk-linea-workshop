@@ -1,6 +1,7 @@
 import Tickets from '~/components/Tickets/Tickets'
 import TicketsOwned from '~/components/TicketsOwned/TicketsOwned'
 import styles from './Display.module.css'
+
 import { useDappConfig } from '~/hooks/useDappConfig'
 
 export const Display = () => {
@@ -30,7 +31,7 @@ export const Display = () => {
 
   return (
     <div className={styles.display}>
-    { dapp.chainInfo?.contractAddress !== ""
+    { dapp.chainInfo?.contractAddress !== "" || !abi
       ? <>
           <Tickets tickets={tickets} /> 
           <TicketsOwned />

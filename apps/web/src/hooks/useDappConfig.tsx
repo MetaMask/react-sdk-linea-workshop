@@ -8,8 +8,6 @@ export const useDappConfig = () => {
   const chainInfo = isSupportedNetwork(chainId)
     ? config[chainId]
     : config['0xe704']
-
-  const dapp = { chainId, chainInfo }
   
-  return { dapp }
+  return { dapp:  { chainId, chainInfo } }
 }
