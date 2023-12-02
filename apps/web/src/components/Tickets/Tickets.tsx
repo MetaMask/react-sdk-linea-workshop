@@ -3,11 +3,11 @@ import styles from './Tickets.module.css'
 import { SiEthereum } from 'react-icons/si'
 import { ethers } from 'ethers'
 
-import { useDappConfig } from '~/hooks/useDappConfig'
-import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
 
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
+import { useDappConfig } from '~/hooks/useDappConfig'
 import { useMetaMask } from '~/hooks/useMetaMask'
 
 interface Ticket {

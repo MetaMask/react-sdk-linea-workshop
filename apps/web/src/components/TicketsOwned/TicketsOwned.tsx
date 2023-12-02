@@ -28,7 +28,7 @@ const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
   const { dapp } = useDappConfig()
-  const { wallet, sdkConnected, mints } = useMetaMask()
+  const { wallet, sdkConnected, mints, setError } = useMetaMask()
 
   const addNft = async (tokenId: string) => {
     try {
@@ -42,8 +42,9 @@ const TicketsOwned = () => {
           },
         },
       })
-    } catch (err: any) {
-      console.error(err.message)
+    } catch (error: any) {
+      console.error(error.message)
+      setError(error?.code)
     }
   }
 
