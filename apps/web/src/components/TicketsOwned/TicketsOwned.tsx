@@ -67,12 +67,9 @@ const TicketsOwned = () => {
   const walletOfOwner = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum)
     const signer = await provider.getSigner()
-    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
-    if (!isSupportedNetwork(chainId)) {
-      throw new Error(
-        'Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local'
-      )
+    if (!isSupportedNetwork(dapp.chainId)) {
+      throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
 
     if (wallet.accounts.length > 0) {
@@ -112,7 +109,7 @@ const TicketsOwned = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && wallet.address !== null && window.ethereum) {
-      if (!isSupportedNetwork(wallet.chainId)) {
+      if (!isSupportedNetwork(dapp.chainId)) {
         return
       }
       walletOfOwner()
