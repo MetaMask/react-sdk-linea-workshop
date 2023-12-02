@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import styles from './TicketsOwned.module.css'
 import { ethers } from 'ethers'
 
-import { useDappConfig } from '~/hooks/useDappConfig'
-import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
 
+import { useDappConfig } from '~/hooks/useDappConfig'
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { useMetaMask } from '../../hooks/useMetaMask'
 
 type NftData = {
