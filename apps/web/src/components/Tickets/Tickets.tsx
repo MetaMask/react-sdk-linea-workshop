@@ -4,12 +4,12 @@ import styles from './Tickets.module.css'
 import { SiEthereum } from 'react-icons/si'
 import { ethers } from 'ethers'
 
-import config from '~/lib/config.json'
-import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
 
 import { useAppState } from '~/hooks/useAppContext'
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
+import { useDappConfig } from '~/hooks/useDappConfig'
 import { useSDK } from '@metamask/sdk-react-ui'
 
 interface Ticket {
@@ -26,7 +26,7 @@ interface TicketsProps {
 const TicketTypes: React.FC<Ticket> = ({
   description, price, priceHexValue,
 }) => {
-
+  const { dapp } = useDappConfig()
   const { setError, updateMints } = useAppState()
   const [isMinting, setIsMinting] = useState(false)
   const { account, sdk, connected, connecting, provider, chainId } = useSDK()
@@ -42,15 +42,13 @@ const TicketTypes: React.FC<Ticket> = ({
     // Signers are authenticated providers connected to the current address in MetaMask.
     const signer = await provider.getSigner()
 
-    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
-    
-    if(!isSupportedNetwork(chainId)) {
+    if (!isSupportedNetwork(dapp.chainId)) {
       throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
 
     if (window.ethereum) {
       const nftTickets = new ethers.Contract(
-        config[chainId].contractAddress, abi, signer
+        dapp.chainInfo?.contractAddress, abi, signer
       ) as unknown as ETHTickets
 
       nftTickets

@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import styles from './TicketsOwned.module.css'
 import { ethers } from 'ethers'
 
-import config from '../../lib/config.json'
-import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import { ETHTickets } from '@workshop/blockchain'
 
+import { useDappConfig } from '~/hooks/useDappConfig'
+import { isSupportedNetwork } from '~/lib/isSupportedNetwork'
 import { useAppState } from '~/hooks/useAppContext'
 import { useSDK } from '@metamask/sdk-react-ui'
 
@@ -26,6 +26,7 @@ type TicketFormatted = {
 
 const TicketsOwned = () => {
   const [ticketCollection, setTicketCollection] = useState<TicketFormatted[]>([])
+  const { dapp } = useDappConfig()
   const { mints } = useAppState()
   const { account, provider, chainId } = useSDK()
 
@@ -36,7 +37,7 @@ const TicketsOwned = () => {
         params: {
           type: 'ERC721',
           options: {
-            address: config[chainId].contractAddress,
+            address: dapp.chainInfo?.contractAddress,
             tokenId: tokenId
           }
         }
@@ -63,17 +64,14 @@ const TicketsOwned = () => {
   const walletOfOwner = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum)
     const signer = await provider.getSigner()
-    const chainId = import.meta.env.VITE_PUBLIC_CHAIN_ID
 
-    if (!isSupportedNetwork(chainId)) {
-      throw new Error(
-        'Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local'
-      )
+    if (!isSupportedNetwork(dapp.chainId)) {
+      throw new Error('Set either `0x5` for goerli or `0x13881` for mumbai in apps/web/.env or .env.local')
     }
 
     if (account) {
       const nftTickets = new ethers.Contract(
-        config[chainId].contractAddress, abi, signer
+        dapp.chainInfo?.contractAddress, abi, signer
       ) as unknown as ETHTickets
 
       const ticketsRetrieved: TicketFormatted[] = []
@@ -108,7 +106,7 @@ const TicketsOwned = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && account !== null && window.ethereum) {
-      if (!isSupportedNetwork(chainId)) {
+      if (!isSupportedNetwork(dapp.chainId)) {
         return
       }
       walletOfOwner()

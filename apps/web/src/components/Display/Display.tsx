@@ -2,7 +2,11 @@ import Tickets from '~/components/Tickets/Tickets'
 import TicketsOwned from '~/components/TicketsOwned/TicketsOwned'
 import styles from './Display.module.css'
 
+import { useDappConfig } from '~/hooks/useDappConfig'
+
 export const Display = () => {
+  const { dapp } = useDappConfig()
+  
   const ethGa = '0.01'
   const ethVip = '0.02'
   const ethGaHex = '0x2386f26fc10000' // '0x2386f26fc10000' *eserialize.com
@@ -27,8 +31,17 @@ export const Display = () => {
 
   return (
     <div className={styles.display}>
-      <Tickets tickets={tickets} />
-      <TicketsOwned /> 
+    { dapp.chainInfo?.contractAddress !== "" || !abi
+      ? <>
+          <Tickets tickets={tickets} /> 
+          <TicketsOwned />
+        </>
+      : <div className={styles.error}>
+          No ETH Atlantis Contract Deployed or
+          <br/>contract address not in config for chain:  
+          <code className={styles.chain}> {dapp.chainId}</code>.
+        </div>
+    }
     </div>
   )
 }

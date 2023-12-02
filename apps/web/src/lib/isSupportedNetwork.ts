@@ -12,9 +12,9 @@ export const isSupportedNetwork = (
     return false
   }
   const isHexChain = id.startsWith('0x')
-  const networkId = isHexChain ? id : `0x${Number(id).toString(16)}` // if not hexstring transform to hexString
-  // Make sure that networkId is in our supported network and is the current network set in .env
+  const chainId = isHexChain ? id : `0x${Number(id).toString(16)}` // if not hexstring transform to hexString
+  // Make sure that chainId is in our supported network and is the current network set in .env
   return !!(
-    networkId in config && import.meta.env.VITE_PUBLIC_CHAIN_ID === networkId
+    chainId in config && import.meta.env.VITE_PUBLIC_CHAIN_ID === chainId
   )
 }
