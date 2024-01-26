@@ -11,7 +11,7 @@
     "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
-    "@metamask/sdk": "^0.14.1",
+    "@metamask/sdk": "^0.14.2",
     "@types/react": "^18.2.39",
     "@types/react-dom": "^18.2.17",
     "@workshop/blockchain": "0.1.0",
