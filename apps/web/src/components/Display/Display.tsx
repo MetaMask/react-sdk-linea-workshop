@@ -1,5 +1,6 @@
 import Tickets from '~/components/Tickets/Tickets'
 import TicketsOwned from '~/components/TicketsOwned/TicketsOwned'
+import { abi } from '../../lib/artifacts/contracts/ETHTickets.sol/ETHTickets.json'
 import styles from './Display.module.css'
 
 import { useDappConfig } from '~/hooks/useDappConfig'

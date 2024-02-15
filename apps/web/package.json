@@ -11,7 +11,7 @@
     "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
-    "@metamask/sdk-react-ui": "^0.14.2",
+    "@metamask/sdk-react-ui": "^0.15.0",
     "@workshop/blockchain": "0.1.0",
     "dotenv": "^16.3.1",
     "ethers": "^6.9.0",
