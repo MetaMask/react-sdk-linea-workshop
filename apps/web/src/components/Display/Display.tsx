@@ -31,7 +31,7 @@ export const Display = () => {
 
   return (
     <div className={styles.display}>
-    { dapp.chainInfo?.contractAddress !== "" || !abi
+    { dapp.chainInfo?.contractAddress !== ""
       ? <>
           <Tickets tickets={tickets} /> 
           <TicketsOwned />
